@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="description" content="View information about your computer, phone, tablet, or other device without downloading any software.">
+  <meta name="keywords" content="stats,specs,whatdevice,device">
+  <meta name="author" content="Corbin Davenport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WhatDevice</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
+	<!-- TODO: Self-host this: https://google.github.io/material-design-icons/ -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/stats.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<meta name="msapplication-TileColor" content="#e7e7e7">
+	<meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+	<meta name="theme-color" content="#e7e7e7">
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">WhatDevice BETA</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#about">About</a></li>
+					<!-- <li><a href="#">Share results</a></li> -->
+					<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="blank_">Donate</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container main-container">
+
+		<div class="row">
+
+			<div class="col-md-6">
+
+				<div class="panel panel-default panel-device">
+					<div class="panel-heading">Device</div>
+					<div class="panel-body">
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							</div>
+						</div>
+						<table>
+							<tr>
+								<td class="device-icon"></td>
+								<td class="device-info"></td> 
+							</tr>
+						</table>
+						<div class="device-warning"></div>
+						<div class="device-screen-info"></div>
+					</div>
+				</div>
+			
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="panel panel-default panel-display">
+					<div class="panel-heading">Display</div>
+					<div class="panel-body">
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-6">
+
+				<div class="panel panel-default panel-browser">
+					<div class="panel-heading">Web browser</div>
+					<div class="panel-body">
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="panel panel-default panel-input">
+					<div class="panel-heading">Cameras and microphones</div>
+					<div class="panel-body">
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<canvas id="glcanvas" width="0" height="0"></canvas>
+
+	</div>
+
+	<div class="modal fade" id="aboutmodal" tabindex="-1" role="dialog" aria-labelledby="aboutModal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">About WhatDevice</h4>
+			</div>
+			<div class="modal-body">
+				<p>WhatDevice is a Progressive Web App designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript, WebGL, and WebRTC - you don't have to download and install any programs or apps!</p>
+				<p>If you're trying to figure out what version of Android your friend's phone is running, or what kind of graphics card is installed in your PC, WhatDevice can help. In the future, WhatDevice will even support sending your full PC configuration to another person, if you need help diagnosing a computer problem.</p>
+				<p>WhatDevice is still under development, so you may run into bugs.</p>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-slider.min.js"></script>
+	<script src="js/platform.js"></script>
+	<script src="js/modernizr-custom.js"></script>
+	<script src="js/includes.js"></script>
+	<script src="js/stats.js"></script>
+</body>
+</html>
