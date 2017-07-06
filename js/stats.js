@@ -175,25 +175,25 @@ $(document).ready(function() {
 	printDisplayInfo();
 	printBrowserInfo();
 	printCameraInfo();
+
+	// Create service worker
+	if ('serviceWorker' in navigator) { 
+		window.addEventListener('load', function() {   
+			navigator.serviceWorker.register('/sw.js').then(
+				function(registration) { 
+					// Registration was successful
+					$(".main-container").prepend("<div class='alert alert-success alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline!</p></div>");
+					console.log('ServiceWorker registration successful with scope: ', registration.scope); }, 
+				function(err) { 
+					// registration failed
+					$(".main-container").prepend("<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><p>Your browser doesn't seem to support Service Workers, so you can only use WhatDevice while connected to the internet.</p></div>");
+					console.log('ServiceWorker registration failed: ', err); 
+				}); 
+		});
+	}
 });
 
 // About button
 $(document).on("click", "a[href='#about']", function() {
 	$('#aboutmodal').modal('show');
 });
-
-// Create service worker
-if ('serviceWorker' in navigator) { 
-	window.addEventListener('load', function() {   
-		navigator.serviceWorker.register('/sw.js').then(
-			function(registration) { 
-				// Registration was successful
-				$(".main-container").prepend("<div class='alert alert-success alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline!</p></div>");
-				console.log('ServiceWorker registration successful with scope: ', registration.scope); }, 
-			function(err) { 
-				// registration failed
-				$(".main-container").prepend("<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><p>Your browser doesn't seem to support Service Workers, so you can only use WhatDevice while connected to the internet.</p></div>");
-				console.log('ServiceWorker registration failed: ', err); 
-			}); 
-	});
-}
