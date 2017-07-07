@@ -1,5 +1,6 @@
 {
  "name": "WhatDevice",
+ "short_name": "WhatDevice",
  "description": "View information about your PC, phone, tablet, or other device.",
  "lang": "en-US",
  "start_url": "/",
