@@ -2,6 +2,6 @@
 
 'use strict';
 importScripts('sw-toolbox.js');
-toolbox.router.get('/*', toolbox.networkFirst, {
+toolbox.router.get('/*', toolbox.fastest, {
   networkTimeoutSeconds: 5
 });
