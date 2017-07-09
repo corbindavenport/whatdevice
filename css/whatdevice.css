@@ -40,11 +40,15 @@
 /* End Material Icons font */
 
 body {
-	padding-top: 70px;
+	padding-top: 80px;
 }
 
 table {
 	width: 100%;
+}
+
+table, .table {
+	font-size: inherit !important;
 }
 
 .title {
@@ -64,6 +68,17 @@ table {
 
 .panel-input .panel-body {
 	word-wrap: break-word;
+}
+
+.whatdevice-button {
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+#report-text {
+	width: 100%;
+	height: 100px;
+	resize: none;
 }
 
 @media only screen and (max-width: 300px) {
