@@ -10,17 +10,17 @@ function printDeviceInfo() {
 	var warning = "";
 	// Device icon
 	if ((platform.product == "iPhone") || (platform.product == "iPod")) {
-		icon = "<p><span class='material-icons device-icon'>phone_iphone</span></p>";
+		icon = "<p aria-label='iPhone icon'><span class='material-icons device-icon'>phone_iphone</span></p>";
 	} else if (platform.product == "iPad") {
-		icon = "<p><span class='material-icons device-icon'>tablet_mac</span></p>";
+		icon = "<p aria-label='iPad icon'><span class='material-icons device-icon'>tablet_mac</span></p>";
 	} else if (isAndroid) {
-		icon = "<p><span class='material-icons device-icon'>phone_android</span></p>";
+		icon = "<p aria-label='Android icon'><span class='material-icons device-icon'>phone_android</span></p>";
 	} else if (isMac) {
-		icon = "<p><span class='material-icons device-icon'>desktop_mac</span></p>";
+		icon = "<p> aria-label='Mac icon'<span class='material-icons device-icon'>desktop_mac</span></p>";
 	} else if (isPC) {
-		icon = "<p><span class='material-icons device-icon'>desktop_windows</span></p>";
+		icon = "<p aria-label='Windows icon'><span class='material-icons device-icon'>desktop_windows</span></p>";
 	} else {
-		icon = "<p><span class='material-icons device-icon'>devices_other</span></p>";
+		icon = "<p aria-label='Generic device icon'><span class='material-icons device-icon'>devices_other</span></p>";
 	}
 	// Device name
 	if (platform.manufacturer && platform.product) {
@@ -59,15 +59,14 @@ function printDeviceInfo() {
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
-		warning += "<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Unsupported OS</h4><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><button type='button' class='btn btn-default os-info-button'>More info</button></p></div>";
-	}
-	$(document).on("click", ".os-info-button", function() {
+		warning += "<div class='alert alert-danger alert-dismissible fade in' role='alert'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
 		if (platform.os.family.includes("Windows XP")) {
-			window.open('https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support', '_blank');
+			warning += 'https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support';
 		} else if (platform.os.family.includes("Vista")) {
-			window.open('https://support.microsoft.com/en-us/help/22882/windows-vista-end-of-support', '_blank');
+			warning += 'https://support.microsoft.com/en-us/help/22882/windows-vista-end-of-support';
 		}
-	});
+		warning += "' target='_blank'><button type='button' class='btn btn-default'>More info</button></a></p></div>";
+	}
 
 	// Write data to page
 	$(".device-icon").html(icon);
@@ -83,15 +82,16 @@ function printDisplayInfo() {
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
-		content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
+		content += "<p aria-label='Display resolution: " + w + " pixels by " + h + " pixels'><b>Display resolution:</b> " + w + " x " + h + "</p>";
 		if ((w != screen.width) || (h != screen.height)) {
+			var percentage = Math.round(window.devicePixelRatio * 100) + "%";
 			// Add warning
 			content = "<div class='alert alert-warning'><b>Warning:</b> Due to a bug, the reported screen resolution could be innaccurate. We're working on a fix!</p></div>" + content;
 			// Add scaled resolution
-			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + " (" + Math.round(window.devicePixelRatio * 100) + "% scaling)</p>";
+			content += "<p aria-label='Scaled resolution: " + screen.width + " pixels by " + screen.height + " pixels, using " + percentage + " scaling'><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + " (" + percentage + " scaling)</p>";
 		}
 	} else {
-		content += "<p><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + "p ixels'><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
 	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
@@ -139,10 +139,7 @@ function printBrowserInfo() {
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
 	if (platform.name === "Chrome") {
-		content += "<p><button type='button' class='btn btn-default update-button'>Check for updates</button></p>"
-		$(document).on("click", ".update-button", function() {
-			window.open('https://support.google.com/chrome/answer/95414', '_blank');
-		})
+		content += "<p><a href='https://support.google.com/chrome/answer/95414' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
 	}
 
 	// Write data to page
