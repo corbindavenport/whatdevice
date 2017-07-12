@@ -78,7 +78,21 @@ function printDeviceInfo() {
 
 // Display info
 function printDisplayInfo() {
-	var content = "<p><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+	var content = "";
+	// Use window.devicePixelRatio to calculate actual device resolution
+	if (window.devicePixelRatio) {
+		var w = Math.round(screen.width * window.devicePixelRatio);
+		var h = Math.round(screen.height * window.devicePixelRatio);
+		content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
+		if ((w != screen.width) || (h != screen.height)) {
+			// Add warning
+			content = "<div class='alert alert-warning'><b>Warning:</b> Due to a bug, the reported screen resolution could be innaccurate. We're working on a fix!</p></div>" + content;
+			// Add scaled resolution
+			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + " (" + Math.round(window.devicePixelRatio * 100) + "% scaling)</p>";
+		}
+	} else {
+		content += "<p><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
 		content += "<p><b>GPU:</b> " + printGPUInfo() + "</p>";
@@ -225,7 +239,20 @@ function createReport() {
 	// Header
 	var report = "---- WHAT-DEVICE.COM RESULTS ----\nGenerated: " + n + " " + time + "\n\n";
 	// Device info
-	report += "-- DEVICE INFO --\nManufacturer: " + platform.manufacturer + "\nProduct: " + platform.product + "\nOperating system: " + platform.os + "\nDisplay resolution: " + screen.width + " x " + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
+	report += "-- DEVICE INFO --\nManufacturer: " + platform.manufacturer + "\nProduct: " + platform.product + "\nOperating system: " + platform.os;
+	// Display info
+	if (window.devicePixelRatio) {
+		var w = Math.round(screen.width * window.devicePixelRatio);
+		var h = Math.round(screen.height * window.devicePixelRatio);
+		report += "\nDisplay resolution: " + w + "x" + h;
+		if ((w != screen.width) || (h != screen.height)) {
+			report += "\nScaled resolution: " + screen.width + "x" + screen.height + "\nScaling ratio: " + Math.round(window.devicePixelRatio * 100) + "%";
+		}
+	} else {
+		report += "\nScreen resolution: " + screen.width + "x" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
+	}
+	report += "\nDisplay color depth: " + screen.colorDepth + "\n";
+	// GPU info
 	if (printGPUInfo() != null) {
 		report += "GPU: " + printGPUInfo() + "\n\n";
 	} else {
