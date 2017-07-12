@@ -10,17 +10,17 @@ function printDeviceInfo() {
 	var warning = "";
 	// Device icon
 	if ((platform.product == "iPhone") || (platform.product == "iPod")) {
-		icon = "<p aria-label='iPhone icon'><span class='material-icons device-icon'>phone_iphone</span></p>";
+		icon = "<p><span aria-label='iPhone icon' class='material-icons device-icon'>phone_iphone</span></p>";
 	} else if (platform.product == "iPad") {
-		icon = "<p aria-label='iPad icon'><span class='material-icons device-icon'>tablet_mac</span></p>";
+		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>tablet_mac</span></p>";
 	} else if (isAndroid) {
-		icon = "<p aria-label='Android icon'><span class='material-icons device-icon'>phone_android</span></p>";
+		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>phone_android</span></p>";
 	} else if (isMac) {
-		icon = "<p> aria-label='Mac icon'<span class='material-icons device-icon'>desktop_mac</span></p>";
+		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>desktop_mac</span></p>";
 	} else if (isPC) {
-		icon = "<p aria-label='Windows icon'><span class='material-icons device-icon'>desktop_windows</span></p>";
+		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>desktop_windows</span></p>";
 	} else {
-		icon = "<p aria-label='Generic device icon'><span class='material-icons device-icon'>devices_other</span></p>";
+		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>devices_other</span></p>";
 	}
 	// Device name
 	if (platform.manufacturer && platform.product) {
