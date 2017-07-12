@@ -35,16 +35,6 @@
 	<meta name="msapplication-TileColor" content="#e7e7e7">
 	<meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
 	<meta name="theme-color" content="#e7e7e7">
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-59452245-3', 'auto');
-		ga('send', 'pageview');
-
-	</script>
 </head>
 <body>
 	<!-- Fixed navbar -->
@@ -157,38 +147,37 @@
 	</div>
 
 	<div class="modal fade" id="aboutmodal" tabindex="-1" role="dialog" aria-labelledby="aboutModal">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">About WhatDevice</h4>
-			</div>
-			<div class="modal-body">
-				<p>WhatDevice is a Progressive Web App designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript, WebGL, and WebRTC - you don't have to download and install any programs or apps!</p>
-				<p>If you're trying to figure out what version of Android your friend's phone is running, or what kind of graphics card is installed in your PC, WhatDevice can help. In the future, WhatDevice will even support sending your full PC configuration to another person, if you need help diagnosing a computer problem.</p>
-				<p>WhatDevice is still under development, so you may run into bugs.</p>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">About WhatDevice</h4>
+				</div>
+				<div class="modal-body">
+					<p>WhatDevice is a Progressive Web App designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript, WebGL, and WebRTC - you don't have to download and install any programs or apps!</p>
+					<p>If you're trying to figure out what version of Android your friend's phone is running, or what kind of graphics card is installed in your PC, WhatDevice can help. In the future, WhatDevice will even support sending your full PC configuration to another person, if you need help diagnosing a computer problem.</p>
+					<p>WhatDevice is still under development, so you may run into bugs.</p>
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<div class="modal fade" id="reportmodal" tabindex="-1" role="dialog" aria-labelledby="reportModal">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Device report</h4>
-			</div>
-			<div class="modal-body">
-				<textarea id="report-text" readonly placeholder="Please wait while the report is generated..."></textarea>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary clipboard-button" data-clipboard-target="#report-text">Copy to clipboard</button>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Device report</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="report-text" readonly placeholder="Please wait while the report is generated..."></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary clipboard-button" data-clipboard-target="#report-text">Copy to clipboard</button>
+				</div>
 			</div>
 		</div>
 	</div>
-
-</div>
 
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
