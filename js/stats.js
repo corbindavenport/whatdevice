@@ -198,7 +198,7 @@ function prepareTwitterLink() {
 		} else if (isPC) {
 			message += "PC";
 		} else {
-			content += "device";
+			message += "device";
 		}
 	}
 	// Append operating system
