@@ -59,7 +59,7 @@ function printDeviceInfo() {
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
-		warning += "<div class='alert alert-danger alert-dismissible fade in' role='alert'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
+		warning += "<div class='alert alert-danger alert-dismissible fade in'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
 		if (platform.os.family.includes("Windows XP")) {
 			warning += 'https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support';
 		} else if (platform.os.family.includes("Vista")) {
@@ -179,7 +179,7 @@ function printCameraInfo() {
 			$(".panel-input .panel-body").prepend("<p class='title'>" + cameras + " cameras, " + audio + " audio devices</p>");
 		})
 		.catch(function(err) {
-			$(".panel-input .panel-body").append("<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Error</h4><p>" + err.name + ": " + err.message + "</p></div>");
+			$(".panel-input .panel-body").append("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Error</h4><p>" + err.name + ": " + err.message + "</p></div>");
 		});
 	} else {
 		$(".panel-input .panel-body").html("<p><i>Your browser doesn't support WebRTC, so cameras and microphones cannot be detected.</i></p>");
@@ -325,7 +325,7 @@ $(document).ready(function() {
 			navigator.serviceWorker.register('/sw.js').then(
 				function(registration) { 
 					// Registration was successful
-					$(".main-container").prepend("<div class='alert alert-success alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline!</p></div>");
+					$(".main-container").prepend("<div class='alert alert-success alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline!</p></div>");
 					console.log('ServiceWorker registration successful with scope: ', registration.scope); }, 
 				function(err) { 
 					// registration failed
