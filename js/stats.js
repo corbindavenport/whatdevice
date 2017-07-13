@@ -365,26 +365,26 @@ $(document).on("click", "a[href='#clipboard']", function() {
 	var clipboard = new Clipboard(".clipboard-button");
 	clipboard.on('success', function(e) {
 		e.clearSelection();
-		$(".clipboard-button").removeClass("btn-primary");
-		$(".clipboard-button").addClass("btn-success");
-		$(".clipboard-button").html("Copied!");
+		$(".clipboard-button").hide();
+		$(".clipboard-success-button").show();
 		setTimeout(function (){
 			$('#reportmodal').modal('hide');
-			$(".clipboard-button").removeClass("btn-success");
-			$(".clipboard-button").addClass("btn-primary");
-			$(".clipboard-button").html("Copy to clipboard");
+			$(".clipboard-button").show();
+			$(".clipboard-success-button").hide();
 		}, 1000);
 	});
 	clipboard.on('error', function(e) {
 		e.clearSelection();
-		$(".clipboard-button").removeClass("btn-primary");
-		$(".clipboard-button").addClass("btn-danger");
-		$(".clipboard-button").html("Error!");
+		$(".clipboard-button").hide();
+		$(".clipboard-error-button").show();
 		setTimeout(function (){
-			$('#reportmodal').modal('hide');
-			$(".clipboard-button").removeClass("btn-danger");
-			$(".clipboard-button").addClass("btn-primary");
-			$(".clipboard-button").html("Copy to clipboard");
+			$(".clipboard-button").show();
+			$(".clipboard-error-button").hide();
 		}, 1000);
 	});
+});
+
+// Remove tags from URL (like #clipboard) after modals close
+$('.modal').on('hide.bs.modal', function (e) {
+	history.pushState('', '', window.location.pathname);
 });
