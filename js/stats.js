@@ -83,12 +83,11 @@ function printDisplayInfo() {
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
-		content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
 		if ((w != screen.width) || (h != screen.height)) {
-			// Add warning
-			content = "<div class='alert alert-warning'><b>Warning:</b> Due to a bug, the reported screen resolution could be innaccurate. We're working on a fix!</p></div>" + content;
-			// Add scaled resolution
-			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + " (" + Math.round(window.devicePixelRatio * 100) + "% scaling)</p>";
+			content += "<p><b>Display resolution:</b> " + w + " x " + h + " (<i>may be innaccurate</i>)</p>";
+			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + ", " + (window.devicePixelRatio * 100) + "% scaling</p>";
+		} else {
+			content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
 		}
 	} else {
 		content += "<p><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
@@ -244,9 +243,9 @@ function createReport() {
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
-		report += "\nDisplay resolution: " + w + "x" + h;
+		report += "\nDisplay resolution: " + w + "x" + h + " (may be inaccurate)";
 		if ((w != screen.width) || (h != screen.height)) {
-			report += "\nScaled resolution: " + screen.width + "x" + screen.height + "\nScaling ratio: " + Math.round(window.devicePixelRatio * 100) + "%";
+			report += "\nScaled resolution: " + screen.width + "x" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
 		}
 	} else {
 		report += "\nScreen resolution: " + screen.width + "x" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
@@ -317,7 +316,7 @@ $(document).ready(function() {
 			navigator.serviceWorker.register('/sw.js').then(
 				function(registration) { 
 					// Registration was successful
-					$(".main-container").prepend("<div class='alert alert-success alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline!</p></div>");
+					$(".main-container").prepend("<div class='well'><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline! Just type in what-device.com at any time.</div>");
 					console.log('ServiceWorker registration successful with scope: ', registration.scope); }, 
 				function(err) { 
 					// registration failed
