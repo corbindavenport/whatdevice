@@ -10,17 +10,17 @@ function printDeviceInfo() {
 	var warning = "";
 	// Device icon
 	if ((platform.product == "iPhone") || (platform.product == "iPod")) {
-		icon = "<p><span class='material-icons device-icon'>phone_iphone</span></p>";
+		icon = "<p><span aria-label='iPhone icon' class='material-icons device-icon'>phone_iphone</span></p>";
 	} else if (platform.product == "iPad") {
-		icon = "<p><span class='material-icons device-icon'>tablet_mac</span></p>";
+		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>tablet_mac</span></p>";
 	} else if (isAndroid) {
-		icon = "<p><span class='material-icons device-icon'>phone_android</span></p>";
+		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>phone_android</span></p>";
 	} else if (isMac) {
-		icon = "<p><span class='material-icons device-icon'>desktop_mac</span></p>";
+		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>desktop_mac</span></p>";
 	} else if (isPC) {
-		icon = "<p><span class='material-icons device-icon'>desktop_windows</span></p>";
+		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>desktop_windows</span></p>";
 	} else {
-		icon = "<p><span class='material-icons device-icon'>devices_other</span></p>";
+		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>devices_other</span></p>";
 	}
 	// Device name
 	if (platform.manufacturer && platform.product) {
@@ -59,15 +59,14 @@ function printDeviceInfo() {
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
-		warning += "<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Unsupported OS</h4><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><button type='button' class='btn btn-default os-info-button'>More info</button></p></div>";
-	}
-	$(document).on("click", ".os-info-button", function() {
+		warning += "<div class='alert alert-danger alert-dismissible fade in'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
 		if (platform.os.family.includes("Windows XP")) {
-			window.open('https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support', '_blank');
+			warning += 'https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support';
 		} else if (platform.os.family.includes("Vista")) {
-			window.open('https://support.microsoft.com/en-us/help/22882/windows-vista-end-of-support', '_blank');
+			warning += 'https://support.microsoft.com/en-us/help/22882/windows-vista-end-of-support';
 		}
-	});
+		warning += "' target='_blank'><button type='button' class='btn btn-default'>More info</button></a></p></div>";
+	}
 
 	// Write data to page
 	$(".device-icon").html(icon);
@@ -90,7 +89,7 @@ function printDisplayInfo() {
 			content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
 		}
 	} else {
-		content += "<p><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + "p ixels'><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
 	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
@@ -138,10 +137,7 @@ function printBrowserInfo() {
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
 	if (platform.name === "Chrome") {
-		content += "<p><button type='button' class='btn btn-default update-button'>Check for updates</button></p>"
-		$(document).on("click", ".update-button", function() {
-			window.open('https://support.google.com/chrome/answer/95414', '_blank');
-		})
+		content += "<p><a href='https://support.google.com/chrome/answer/95414' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
 	}
 
 	// Write data to page
@@ -181,7 +177,7 @@ function printCameraInfo() {
 			$(".panel-input .panel-body").prepend("<p class='title'>" + cameras + " cameras, " + audio + " audio devices</p>");
 		})
 		.catch(function(err) {
-			$(".panel-input .panel-body").append("<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Error</h4><p>" + err.name + ": " + err.message + "</p></div>");
+			$(".panel-input .panel-body").append("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Error</h4><p>" + err.name + ": " + err.message + "</p></div>");
 		});
 	} else {
 		$(".panel-input .panel-body").html("<p><i>Your browser doesn't support WebRTC, so cameras and microphones cannot be detected.</i></p>");
@@ -310,6 +306,17 @@ $(document).ready(function() {
 	prepareTwitterLink();
 	prepareEmailLink();
 
+	// Load Google Analytics for live site, not local testing
+	if (window.location.href.includes("what-device.com")) {
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-59452245-3', 'auto');
+		ga('send', 'pageview');
+	}
+
 	// Create service worker
 	if ('serviceWorker' in navigator) { 
 		window.addEventListener('load', function() {   
@@ -356,26 +363,26 @@ $(document).on("click", "a[href='#clipboard']", function() {
 	var clipboard = new Clipboard(".clipboard-button");
 	clipboard.on('success', function(e) {
 		e.clearSelection();
-		$(".clipboard-button").removeClass("btn-primary");
-		$(".clipboard-button").addClass("btn-success");
-		$(".clipboard-button").html("Copied!");
+		$(".clipboard-button").hide();
+		$(".clipboard-success-button").show();
 		setTimeout(function (){
 			$('#reportmodal').modal('hide');
-			$(".clipboard-button").removeClass("btn-success");
-			$(".clipboard-button").addClass("btn-primary");
-			$(".clipboard-button").html("Copy to clipboard");
+			$(".clipboard-button").show();
+			$(".clipboard-success-button").hide();
 		}, 1000);
 	});
 	clipboard.on('error', function(e) {
 		e.clearSelection();
-		$(".clipboard-button").removeClass("btn-primary");
-		$(".clipboard-button").addClass("btn-danger");
-		$(".clipboard-button").html("Error!");
+		$(".clipboard-button").hide();
+		$(".clipboard-error-button").show();
 		setTimeout(function (){
-			$('#reportmodal').modal('hide');
-			$(".clipboard-button").removeClass("btn-danger");
-			$(".clipboard-button").addClass("btn-primary");
-			$(".clipboard-button").html("Copy to clipboard");
+			$(".clipboard-button").show();
+			$(".clipboard-error-button").hide();
 		}, 1000);
 	});
+});
+
+// Remove tags from URL (like #clipboard) after modals close
+$('.modal').on('hide.bs.modal', function (e) {
+	history.pushState('', '', window.location.pathname);
 });

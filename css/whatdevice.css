@@ -82,6 +82,10 @@ table, .table {
 	resize: none;
 }
 
+.clipboard-success-button, .clipboard-error-button {
+	display: none;
+}
+
 @media only screen and (max-width: 300px) {
 	.device-icon {
 		margin-right: 0px !important;
