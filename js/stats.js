@@ -3,7 +3,7 @@ var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
 var isAndroid = navigator.userAgent.toUpperCase().indexOf('ANDROID') > -1;
 var isPC = ((navigator.userAgent.toUpperCase().indexOf('WINDOWS') > -1) || (navigator.userAgent.toUpperCase().indexOf('LINUX') > -1));
 
-// Browser info
+// Device info
 function printDeviceInfo() {
 	var content = "";
 	var icon = "";
@@ -185,6 +185,7 @@ function printCameraInfo() {
 	$(".panel-input .progress").hide();
 }
 
+// Create twitter share link
 function prepareTwitterLink() {
 	// Create message
 	var message = "I have a ";
@@ -224,6 +225,24 @@ function prepareTwitterLink() {
 function prepareEmailLink() {
 	var message = encodeURIComponent(createReport());
 	$(".email").attr("href", "mailto:?to=&body=" + message + "&subject=WhatDevice%20Report");
+}
+
+// Fill the bottom info box
+function writeInfo() {
+	var content = "<div class='well'><b>Need more info?</b> "
+	if (isMac) {
+		content += "Search for the 'System Information' app on your Mac to view more detailed information. <a href='https://support.apple.com/en-us/HT203001' target='_blank'>Need help finding it?</a>"
+	} else if (platform.os.family.includes("Chrome OS")) {
+		content += "You can <a href='https://chrome.google.com/webstore/detail/cog-system-info-viewer/difcjdggkffcfgcfconafogflmmaadco' target='_blank_'>download Cog from the Chrome Web Store</a> to view more detailed information about your computer. WhatDevice is not affiliated with Cog in any way."
+	} else if (isAndroid) {
+		content += "You can <a href='https://play.google.com/store/apps/details?id=com.cpuid.cpu_z' target='_blank_'>download CPU-Z from the Google Play Store</a> to view more detailed information about your device. WhatDevice is not affiliated with CPU-Z in any way."
+	} else if (isPC) {
+		content += "You can <a href='http://www.cpuid.com/softwares/cpu-z.html' target='_blank_'>download CPU-Z</a> to view more detailed information about your computer. WhatDevice is not affiliated with CPU-Z in any way."
+	} else if (platform.os.family.includes("iOS")) {
+		content += "You can <a href='https://itunes.apple.com/us/app/lirum-device-info-lite-system-monitor/id591660734?mt=8' target='_blank_'>download Lirum Device Info Lite from the App Store</a> to view more detailed information about your device. WhatDevice is not affiliated with Lirum Device Info Lite in any way."
+	}
+	content += "</div>"
+	$(".moreinfo-well").html(content);
 }
 
 // Create device report
@@ -305,6 +324,7 @@ $(document).ready(function() {
 	printCameraInfo();
 	prepareTwitterLink();
 	prepareEmailLink();
+	writeInfo();
 
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("what-device.com")) {
