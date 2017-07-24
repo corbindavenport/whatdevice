@@ -138,6 +138,8 @@ function printBrowserInfo() {
 	// Buttons
 	if (platform.name === "Chrome") {
 		content += "<p><a href='https://support.google.com/chrome/answer/95414' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
+	} else if (platform.name === "Firefox") {
+		content += "<p><a href='https://support.mozilla.org/en-US/kb/update-firefox-latest-version' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
 	}
 
 	// Write data to page
