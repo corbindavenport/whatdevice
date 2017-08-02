@@ -342,11 +342,13 @@ $(document).ready(function() {
 	// Create service worker
 	if ('serviceWorker' in navigator) { 
 		window.addEventListener('load', function() {   
-			navigator.serviceWorker.register('/sw.js').then(
-				function(registration) { 
+			navigator.serviceWorker.register('/sw.js').then(function(registration) { 
 					// Registration was successful
 					$(".main-container").prepend("<div class='well'><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline! Just type in what-device.com at any time.</div>");
-					console.log('ServiceWorker registration successful with scope: ', registration.scope); }, 
+					console.log('ServiceWorker registration successful with scope: ', registration.scope); 
+					// Update service worker
+					registration.update();
+				},
 				function(err) { 
 					// registration failed
 					console.log('ServiceWorker registration failed: ', err); 
