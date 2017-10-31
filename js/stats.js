@@ -52,7 +52,7 @@ function printDeviceInfo() {
 		content += "<p><b>Operating system: </b> Unknown</p>";
 	}
 	// RAM
-	if (typeof navigator.deviceMemory !== undefined) {
+	if (typeof navigator.deviceMemory !== 'undefined' && navigator.deviceMemory) {
 		content += "<p><b>RAM:</b> <span style='color: red'>Unavailable</span></p>";
 	} else {
 		content += "<p><b>RAM:</b> " + navigator.deviceMemory + " GB</p>";
