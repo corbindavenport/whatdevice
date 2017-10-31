@@ -377,7 +377,7 @@ $(document).ready(function() {
 					// Force reload page and service worker when user clicks the refresh button in navbar
 					$(document).on("click", "a[href='#refresh']", function() {
 						registration.unregister().then(function(boolean) {
-							location.reload();
+							location.reload(true);
 						})
 					});
 				},
@@ -385,7 +385,7 @@ $(document).ready(function() {
 					// registration failed
 					console.log('ServiceWorker registration failed: ', err);
 					$(document).on("click", "a[href='#refresh']", function() {
-						location.reload();
+						location.reload(true);
 					});
 				}); 
 		});
