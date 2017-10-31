@@ -52,10 +52,10 @@ function printDeviceInfo() {
 		content += "<p><b>Operating system: </b> Unknown</p>";
 	}
 	// RAM
-	if (typeof navigator.deviceMemory !== 'undefined' && navigator.deviceMemory) {
-		content += "<p><b>RAM:</b> <span style='color: red'>Unavailable</span></p>";
-	} else {
+	if (typeof navigator.deviceMemory != 'undefined' && navigator.deviceMemory) {
 		content += "<p><b>RAM:</b> " + navigator.deviceMemory + " GB</p>";
+	} else {
+		content += "<p><b>RAM:</b> <span style='color: red'>Unavailable</span></p>";
 	}
 	// Language
 	if (navigator.languages) {
