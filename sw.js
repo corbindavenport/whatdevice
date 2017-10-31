@@ -1,6 +1,6 @@
 // Service worker
 
-// Build 22
+// Build 23
 'use strict';
 importScripts('sw-toolbox.js');
 toolbox.router.get('/*', toolbox.networkFirst, {
