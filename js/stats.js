@@ -51,11 +51,22 @@ function printDeviceInfo() {
 	} else {
 		content += "<p><b>Operating system: </b> Unknown</p>";
 	}
-	content += "<p><b>Language:</b> " + navigator.language + "</p>";
-	if (navigator.onLine == true) {
-		content += "<p><b>Connected to internet:</b> <span style='color:green'>Yes</span></p>";
+	// RAM
+	if (typeof navigator.deviceMemory !== undefined) {
+		content += "<p><b>RAM:</b> <span style='color: red'>Unavailable</span></p>";
 	} else {
-		content += "<p><b>Connected to internet:</b> <span style='color:red'>No</span></p>";
+		content += "<p><b>RAM:</b> " + navigator.deviceMemory + " GB</p>";
+	}
+	// Language
+	if (navigator.languages) {
+		content += "<p><b>Language:</b> " + navigator.languages[0] + "</p>";
+	} else {
+		content += "<p><b>Language:</b> " + navigator.language + "</p>";
+	}
+	if (navigator.onLine == true) {
+		content += "<p><b>Connected to internet:</b> <span id='network-status'><span style='color: green'>Yes</span></span></p>";
+	} else {
+		content += "<p><b>Connected to internet:</b> <span id='network-status'><span style='color: red'>No</span></span></p>";
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
@@ -73,6 +84,17 @@ function printDeviceInfo() {
 	$(".device-info").html(content);
 	$(".device-warning").html(warning);
 	$(".panel-device .progress").hide();
+}
+
+// Update online status automatically
+function updateOnlineStatus() {
+	var content;
+	if (navigator.onLine == true) {
+		content = "<span style='color: green'>Yes</span>";
+	} else {
+		content = "<span style='color: red'>No</span>";
+	}
+	$("#network-status").html(content);
 }
 
 // Display info
@@ -414,6 +436,10 @@ $(document).on("click", "#share-button", function() {
 		  .catch((error) => console.log('Error sharing', error));
 	}
 });
+
+// Update network status automatically
+window.addEventListener('online',  updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
 
 // Remove tags from URL (like #clipboard) after modals close
 $('.modal').on('hide.bs.modal', function (e) {
