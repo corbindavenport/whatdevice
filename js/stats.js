@@ -339,7 +339,12 @@ $(document).ready(function() {
 		ga('send', 'pageview');
 	}
 
-	// Create service worker
+	// Hide floating share button if the Web Share API is not supported
+	if (!navigator.share) {
+		$("#share-button").hide();
+	}
+
+	/* Implement service workers later
 	if ('serviceWorker' in navigator) { 
 		window.addEventListener('load', function() {   
 			navigator.serviceWorker.register('/sw.js').then(function(registration) { 
@@ -355,6 +360,7 @@ $(document).ready(function() {
 				}); 
 		});
 	}
+	*/
 });
 
 // About button
@@ -397,6 +403,18 @@ $(document).on("click", "a[href='#clipboard']", function() {
 			$(".clipboard-error-button").hide();
 		}, 1000);
 	});
+});
+
+// Share button for mobile devices
+$(document).on("click", "#share-button", function() {
+	if (navigator.share) {
+		navigator.share({
+			title: 'WhatDevice report',
+			text: createReport(),
+		})
+		  .then(() => console.log('Successful share'))
+		  .catch((error) => console.log('Error sharing', error));
+	  }
 });
 
 // Remove tags from URL (like #clipboard) after modals close
