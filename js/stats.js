@@ -374,10 +374,19 @@ $(document).ready(function() {
 					console.log('ServiceWorker registration successful with scope: ', registration.scope); 
 					// Update service worker
 					registration.update();
+					// Force reload page and service worker when user clicks the refresh button in navbar
+					$(document).on("click", "a[href='#refresh']", function() {
+						registration.unregister().then(function(boolean) {
+							location.reload();
+						})
+					});
 				},
 				function(err) { 
 					// registration failed
-					console.log('ServiceWorker registration failed: ', err); 
+					console.log('ServiceWorker registration failed: ', err);
+					$(document).on("click", "a[href='#refresh']", function() {
+						location.reload();
+					});
 				}); 
 		});
 	}
