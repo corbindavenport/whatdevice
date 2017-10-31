@@ -412,7 +412,7 @@ $(document).on("click", "#share-button", function() {
 		})
 		  .then(() => console.log('Successful share'))
 		  .catch((error) => console.log('Error sharing', error));
-	  }
+	}
 });
 
 // Remove tags from URL (like #clipboard) after modals close
