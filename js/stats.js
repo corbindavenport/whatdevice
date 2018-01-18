@@ -365,31 +365,7 @@ $(document).ready(function() {
 	if (!navigator.share) {
 		$("#share-button").hide();
 	}
-
-	if ('serviceWorker' in navigator) { 
-		window.addEventListener('load', function() {   
-			navigator.serviceWorker.register('/sw.js').then(function(registration) { 
-					// Registration was successful
-					$(".main-container").prepend("<div class='well'><b>Good news!</b> Your browser supports Service Workers, so you can open WhatDevice even when your device is offline! Just type 'what-device.com' in your browser at any time.</div>");
-					console.log('ServiceWorker registration successful with scope: ', registration.scope); 
-					// Update service worker
-					registration.update();
-					// Force reload page and service worker when user clicks the refresh button in navbar
-					$(document).on("click", "a[href='#refresh']", function() {
-						registration.unregister().then(function(boolean) {
-							location.reload(true);
-						})
-					});
-				},
-				function(err) { 
-					// registration failed
-					console.log('ServiceWorker registration failed: ', err);
-					$(document).on("click", "a[href='#refresh']", function() {
-						location.reload(true);
-					});
-				}); 
-		});
-	}
+	
 });
 
 // About button
