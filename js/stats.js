@@ -84,7 +84,7 @@ function printDeviceInfo() {
 }
 
 // Display info
-function printDisplayInfo() {
+function printGraphicsInfo() {
 	var content = "";
 	// Use window.devicePixelRatio to calculate actual device resolution
 	if (window.devicePixelRatio) {
@@ -107,7 +107,7 @@ function printDisplayInfo() {
 	}
 
 	// Write data to page
-	$(".panel-display .panel-body").html(content);
+	$(".panel-graphics .panel-body").html(content);
 }
 
 // GPU info
@@ -159,7 +159,11 @@ function printNetworkInfo() {
 	var content = "";
 	if (navigator.connection) {
 		// Network type
-		content += "<p><b>Network type:</b> " + navigator.connection.type + "</p>";
+		if (typeof navigator.connection.type != undefined) {
+			content += "<p class='title'>Unknown network type</p>"
+		} else {
+			content += "<p class='title'>" + navigator.connection.type + " network</p>"
+		}
 		// Effective bandwidth estimate
 		content += "<p><b>Downlink:</b> " + navigator.connection.downlink + " Mb/s</p>";
 		// Effective round-trip time estimate
@@ -213,9 +217,17 @@ function prepareTwitterLink() {
 	$(".twitter").attr("href", "https://twitter.com/intent/tweet?text=" + message);
 }
 
-function prepareEmailLink() {
-	var message = encodeURIComponent(createReport());
-	$(".email").attr("href", "mailto:?to=&body=" + message + "&subject=WhatDevice%20Report");
+function prepareSendLinks() {
+	// Twitter
+	$(".email").attr("href", "mailto:?to=&body=" + encodeURIComponent(prepareTwitterLink()) + "&subject=WhatDevice%20Report");
+	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
+	if (platform.manufacturer == "Apple") {
+		// iOS 8+ format
+		$(".sms").attr("href", "sms:&body=" + encodeURIComponent(createReport()));
+	} else {
+		// Android format
+		$(".sms").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
+	}
 }
 
 // Fill the bottom info box
@@ -288,11 +300,11 @@ function createReport() {
 $(document).ready(function() {
 	// Load device info
 	printDeviceInfo();
-	printDisplayInfo();
+	printGraphicsInfo();
 	printBrowserInfo();
 	printNetworkInfo();
 	prepareTwitterLink();
-	prepareEmailLink();
+	prepareSendLinks();
 	writeInfo();
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("what-device.com")) {
