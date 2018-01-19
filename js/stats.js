@@ -55,13 +55,15 @@ function printDeviceInfo() {
 	if (typeof navigator.deviceMemory != 'undefined' && navigator.deviceMemory) {
 		content += "<p><b>RAM:</b> " + navigator.deviceMemory + " GB</p>";
 	} else {
-		content += "<p><b>RAM:</b> <span style='color: red'>Unavailable</span></p>";
+		content += "<p><b>RAM:</b> Unavailable</p>";
 	}
 	// Language
 	if (navigator.languages) {
 		content += "<p><b>Language:</b> " + navigator.languages[0] + "</p>";
-	} else {
+	} else if (navigator.language) {
 		content += "<p><b>Language:</b> " + navigator.language + "</p>";
+	} else {
+		content += "<p><b>Language:</b> Unavailable</p>";
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
@@ -101,7 +103,7 @@ function printDisplayInfo() {
 	if (printGPUInfo() != null) {
 		content += "<p><b>GPU:</b> " + printGPUInfo() + "</p>";
 	} else {
-		content += "<p><i>GPU information could not be detected because your browser doesn't support WebGL (or the required features of WebGL).</i></p>";
+		content += "<p>GPU information could not be detected because your browser doesn't support the required WebGL features.</p>";
 	}
 
 	// Write data to page
@@ -292,7 +294,6 @@ $(document).ready(function() {
 	prepareTwitterLink();
 	prepareEmailLink();
 	writeInfo();
-
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("what-device.com")) {
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -303,12 +304,10 @@ $(document).ready(function() {
 		ga('create', 'UA-59452245-3', 'auto');
 		ga('send', 'pageview');
 	}
-
 	// Hide floating share button if the Web Share API is not supported
 	if (!navigator.share) {
 		$("#share-button").hide();
 	}
-
 });
 
 // About button
@@ -370,5 +369,9 @@ if (navigator.connection) {
 
 // Remove tags from URL (like #clipboard) after modals close
 $('.modal').on('hide.bs.modal', function (e) {
-	history.pushState('', '', window.location.pathname);
+	if ("pushState" in history) {
+		history.pushState('', '', window.location.pathname);
+	} else {
+		window.location.hash = "";
+	}
 });
