@@ -218,8 +218,8 @@ function prepareTwitterLink() {
 }
 
 function prepareSendLinks() {
-	// Twitter
-	$(".email").attr("href", "mailto:?to=&body=" + encodeURIComponent(prepareTwitterLink()) + "&subject=WhatDevice%20Report");
+	// Email
+	$(".email").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
 	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
 	if (platform.manufacturer == "Apple") {
 		// iOS 8+ format
