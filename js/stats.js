@@ -63,11 +63,6 @@ function printDeviceInfo() {
 	} else {
 		content += "<p><b>Language:</b> " + navigator.language + "</p>";
 	}
-	if (navigator.onLine == true) {
-		content += "<p><b>Connected to internet:</b> <span id='network-status'><span style='color: green'>Yes</span></span></p>";
-	} else {
-		content += "<p><b>Connected to internet:</b> <span id='network-status'><span style='color: red'>No</span></span></p>";
-	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
 		warning += "<div class='alert alert-danger alert-dismissible fade in'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
@@ -84,17 +79,6 @@ function printDeviceInfo() {
 	$(".device-info").html(content);
 	$(".device-warning").html(warning);
 	$(".panel-device .progress").hide();
-}
-
-// Update online status automatically
-function updateOnlineStatus() {
-	var content;
-	if (navigator.onLine == true) {
-		content = "<span style='color: green'>Yes</span>";
-	} else {
-		content = "<span style='color: red'>No</span>";
-	}
-	$("#network-status").html(content);
 }
 
 // Display info
@@ -168,45 +152,26 @@ function printBrowserInfo() {
 	$(".panel-browser .panel-body").html(content);
 }
 
-// Camera/mic info
-function printCameraInfo() {
-	if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-		// Keep track of devices
-		var cameras = 0;
-		var audio = 0;
-		navigator.mediaDevices.enumerateDevices().then(function(devices) {
-			devices.forEach(function(device) {
-				var type = device.kind;
-				// Make results more readable
-				if (type === "audiooutput") {
-					type = "Audio output"
-					audio++;
-				} else if (type === "audioinput") {
-					type = "Audio input"
-					audio++;
-				} else if (type === "videoinput") {
-					type = "Camera"
-					cameras++;
-				}
-				// Determine name of cameras/mics
-				var label;
-				if (device.label) {
-					label = device.label;
-				} else {
-					label = device.deviceId;
-				}
-				// Print info for each device
-				$(".panel-input .panel-body").append("<p><b>" + type + ":</b> " + label + "</p>");
-			});
-			$(".panel-input .panel-body").prepend("<p class='title'>" + cameras + " cameras, " + audio + " audio devices</p>");
-		})
-		.catch(function(err) {
-			$(".panel-input .panel-body").append("<div class='alert alert-danger alert-dismissible fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden'true'>&times;</span></button><h4>Error</h4><p>" + err.name + ": " + err.message + "</p></div>");
-		});
+// Network info
+function printNetworkInfo() {
+	var content = "";
+	if (navigator.connection) {
+		// Network type
+		content += "<p><b>Network type:</b> " + navigator.connection.type + "</p>";
+		// Effective bandwidth estimate
+		content += "<p><b>Downlink:</b> " + navigator.connection.downlink + " Mb/s</p>";
+		// Effective round-trip time estimate
+		content += "<p><b>Rount-trip time estimate:</b> " + navigator.connection.rtt + " milliseconds</p>";
+		// Data saver status
+		content += "<p><b>Data saver:</b> " + navigator.connection.saveData + "</p>";
+		// Print current time
 	} else {
-		$(".panel-input .panel-body").html("<p><i>Your browser doesn't support WebRTC, so cameras and microphones cannot be detected.</i></p>");
+		content += "<p>Your browser doesn't support the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API' target='_blank'>Network Information API</a>, so network information cannot be obtained.</p>"
 	}
-	$(".panel-input .progress").hide();
+	// Speedtest
+	content += "<p><a href='https://fast.com/' target='_blank'><button type='button' class='btn btn-default'>Open speed test</button></a></p>"
+	// Write data to page
+	$(".panel-network .panel-body").html(content);
 }
 
 // Create twitter share link
@@ -298,42 +263,20 @@ function createReport() {
 	}
 	// Browser info
 	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nUser agent string: " + navigator.userAgent + "\n\n";
-	// Cameras and microphones
-	report += "-- CONNECTED DEVICES --\n";
-	var connected = ""; // Keep list of connected devices as a seperate variable
-	if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-		navigator.mediaDevices.enumerateDevices().then(function(devices) {
-			devices.forEach(function(device) {
-				var type = device.kind;
-				// Make results more readable
-				if (type === "audiooutput") {
-					type = "Audio output"
-				} else if (type === "audioinput") {
-					type = "Audio input"
-				} else if (type === "videoinput") {
-					type = "Camera"
-				}
-				// Determine name of cameras/mics
-				var label;
-				if (device.label) {
-					label = device.label;
-				} else {
-					label = device.deviceId;
-				}
-				// Print info for each device
-				connected += type + ": " + label + "\n";
-			});
-		})
-		.catch(function(err) {
-			connected += "Error retrieving list of connected devices:" + err.message + "\n";
-		});
+	// Network info
+	report += "-- NETWORK INFO --\n";
+	if (navigator.connection) {
+		// Network type
+		report += "Network type: " + navigator.connection.type + "\n";
+		// Effective bandwidth estimate
+		report += "Downlink: " + navigator.connection.downlink + " Mb/s\n";
+		// Effective round-trip time estimate
+		report += "Rount-trip time estimate: " + navigator.connection.rtt + " milliseconds\n";
+		// Data saver status
+		report += "Data saver: " + navigator.connection.saveData + "\n";
+		// Print current time
 	} else {
-		connected += "Unable to retrieve list of connected devices due to web browser not supporting the API.";
-	}
-	if (connected === "") {
-		report += "Unable to retrieve list of connected devices due to API limitations.";
-	} else {
-		report += "connected";
+		report += "Unable to obtain network information because this browser doesn't support the Network Information API."
 	}
 
 	return report;
@@ -345,7 +288,7 @@ $(document).ready(function() {
 	printDeviceInfo();
 	printDisplayInfo();
 	printBrowserInfo();
-	printCameraInfo();
+	printNetworkInfo();
 	prepareTwitterLink();
 	prepareEmailLink();
 	writeInfo();
@@ -365,7 +308,7 @@ $(document).ready(function() {
 	if (!navigator.share) {
 		$("#share-button").hide();
 	}
-	
+
 });
 
 // About button
@@ -416,15 +359,14 @@ $(document).on("click", "#share-button", function() {
 		navigator.share({
 			title: 'WhatDevice report',
 			text: createReport(),
-		})
-		  .then(() => console.log('Successful share'))
-		  .catch((error) => console.log('Error sharing', error));
+		});
 	}
 });
 
 // Update network status automatically
-window.addEventListener('online',  updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
+if (navigator.connection) {
+	navigator.connection.addEventListener('change', printNetworkInfo());
+}
 
 // Remove tags from URL (like #clipboard) after modals close
 $('.modal').on('hide.bs.modal', function (e) {
