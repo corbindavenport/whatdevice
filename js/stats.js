@@ -376,6 +376,7 @@ $(document).on("click", "#share-button", function() {
 
 // Update network status automatically
 if (navigator.connection) {
+	console.log("Network status changed, refreshing Network panel...")
 	navigator.connection.addEventListener('change', printNetworkInfo());
 }
 

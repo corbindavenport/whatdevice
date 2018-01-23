@@ -5,7 +5,6 @@
 	<meta name="description" content="View information about your computer, phone, tablet, or other device without downloading any software.">
 	<meta name="keywords" content="stats,specs,whatdevice,device">
 	<meta name="author" content="Corbin Davenport">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>WhatDevice</title>
@@ -75,8 +74,13 @@
 
 	<div class="container main-container">
 
-		<!-- Main content -->
+		<!-- WhatDevice Lite header that automatically shows up for IE 8 and lower -->
+		<!--[if lte IE 8]>
+		<div class="well"><b>WhatDevice detected you are using an unsupported browser or platform. We recommend you use <a href="http://what-device.com/lite/index.html">WhatDevice Lite</a> instead.</b></div>
+		<![endif]-->
 
+		<!-- Main content -->
+		
 		<div class="row">
 
 			<div class="col-md-6">
