@@ -8,6 +8,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>WhatDevice</title>
+	<!-- Redirect Internet Explorer 8 and below to WhatDevice Lite -->
+	<!--[if lte IE 8]>
+		<meta http-equiv="refresh" content="0; URL='http://www.what-device.com/lite'" />
+	<![endif]-->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
 	<link href="css/whatdevice.css" rel="stylesheet">
@@ -80,7 +84,7 @@
 		<![endif]-->
 
 		<!-- Main content -->
-		
+
 		<div class="row">
 
 			<div class="col-md-6">
@@ -168,7 +172,7 @@
 				</div>
 				<div class="modal-body">
 					<p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript and WebGL - you don't have to download any programs or apps!</p>
-					<p>WhatDevice supports all modern browsers. Internet Explorer 9 or higher is required.</p>
+					<p>WhatDevice supports all modern browsers. For older or less-powerful browsers, try <a href="http://www.what-device.com/lite">WhatDevice Lite</a>.</p>
 					<p style="color: red">WhatDevice is still under development, so you may run into bugs.</p>
 				</div>
 			</div>
@@ -196,7 +200,7 @@
 
 	<div id="share-button"><span aria-label="Share button" class="material-icons">share</span></div>
 
-	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/platform.js"></script>
 	<script src="js/modernizr-custom.js"></script>
