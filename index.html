@@ -7,11 +7,18 @@
 	<meta name="author" content="Corbin Davenport">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="canonical" href="https://what-device.com/index.html" />
 	<title>WhatDevice</title>
 	<!-- Redirect Internet Explorer 8 and below to WhatDevice Lite -->
 	<!--[if lte IE 8]>
 		<meta http-equiv="refresh" content="0; URL='http://www.what-device.com/lite'" />
 	<![endif]-->
+	<script>
+	// Redirect various mobile/legacy browsers to WhatDevice Lite
+	if (window.location.hash != "#noredirect" && /Opera Mini|webOS|hpwOS|Nintendo DS|Nintendo Wii|PlayStation Portable|PlayStation Vita/g.test(navigator.userAgent)) {
+		window.location.href = "http://www.what-device.com/lite"
+	}
+	</script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
 	<link href="css/whatdevice.css" rel="stylesheet">
