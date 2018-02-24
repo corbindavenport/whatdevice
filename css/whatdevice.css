@@ -109,6 +109,10 @@ table, .table {
 	padding: 0 !important;
 }
 
+#sharemodal .list-group {
+	margin-bottom: 0 !important;
+}
+
 @media only screen and (max-width: 300px) {
 	.device-icon {
 		margin-right: 0px !important;

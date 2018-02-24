@@ -22,11 +22,6 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
 	<link href="css/whatdevice.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 	<link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
@@ -60,15 +55,6 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" role="navigation">
 				<ul class="nav navbar-nav navbar-right" role="menubar">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Share results <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="divider"></li>
-							<li><a class="sms" target="_blank">Send via SMS</a></li>
-							<li class="divider"></li>
-							<li><a class="twitter" target="_blank">Share results on Twitter</a></li>
-						</ul>
-					</li>
 					<li><a href="#about">About</a></li>
 					<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Donate</a></li>
 				</ul>
@@ -78,12 +64,7 @@
 
 	<div class="container main-container">
 
-		<!-- WhatDevice Lite header that automatically shows up for IE 8 and lower -->
-		<!--[if lte IE 8]>
-		<div class="well"><b>WhatDevice detected you are using an unsupported browser or platform. We recommend you use <a href="http://what-device.com/lite/index.html">WhatDevice Lite</a> instead.</b></div>
-		<![endif]-->
-
-		<!-- Main content -->
+		<div class="well"><strong>Welcome to WhatDevice!</strong> To share or download your device's test results, click or tap the green Share button in the bottom-right corner.</div>
 
 		<div class="row">
 
@@ -209,7 +190,9 @@
 						<div class="list-group list-group-flush">
 						<a href="#savefile" class="list-group-item list-group-item-action">Save as text file</a>
 						<a href="#clipboard" class="list-group-item list-group-item-action">Copy to clipboard</a>
-						<a href="#email" class="list-group-item list-group-item-action"><i class="material-icons">&#xE0BE;</i> Send via email</a>
+						<a href="#email" class="list-group-item list-group-item-action">Send via email</a>
+						<a href="#sms" class="list-group-item list-group-item-action">Send via SMS</a>
+						<a href="#twitter" target="_blank" class="list-group-item list-group-item-action">Share on Twitter</a>
 					  </div>
 				</div>
 			</div>

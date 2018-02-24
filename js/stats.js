@@ -214,7 +214,7 @@ function prepareTwitterLink() {
 	message += ", with " + platform.name + " " + platform.version + ". See your results at http://what-device.com."
 	// Create links
 	message = encodeURIComponent(message);
-	$(".twitter").attr("href", "https://twitter.com/intent/tweet?text=" + message);
+	$("a[href='#twitter']").attr("href", "https://twitter.com/intent/tweet?text=" + message);
 }
 
 function prepareSendLinks() {
@@ -223,10 +223,10 @@ function prepareSendLinks() {
 	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
 	if (platform.manufacturer == "Apple") {
 		// iOS 8+ format
-		$(".sms").attr("href", "sms:&body=" + encodeURIComponent(createReport()));
+		$("a[href='#sms']").attr("href", "sms:&body=" + encodeURIComponent(createReport()));
 	} else {
 		// Android format
-		$(".sms").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
+		$("a[href='#sms']").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
 	}
 }
 
@@ -335,6 +335,7 @@ $(document).on("click", "a[href='#savefile']", function() {
 
 // Clipboard menu option
 $(document).on("click", "a[href='#clipboard']", function() {
+	$('#sharemodal').modal('hide');
 	$('#reportmodal').modal('show');
 	$("#report-text").val(createReport());
 
