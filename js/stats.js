@@ -10,17 +10,17 @@ function printDeviceInfo() {
 	var warning = "";
 	// Device icon
 	if ((platform.product == "iPhone") || (platform.product == "iPod")) {
-		icon = "<p><span aria-label='iPhone icon' class='material-icons device-icon'>phone_iphone</span></p>";
+		icon = "<p><span aria-label='iPhone icon' class='material-icons device-icon'>&#xE325;</span></p>";
 	} else if (platform.product == "iPad") {
-		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>tablet_mac</span></p>";
+		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>&#xE30B;</span></p>";
 	} else if (isAndroid) {
-		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>phone_android</span></p>";
+		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>&#xE30B;</span></p>";
 	} else if (isMac) {
-		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>desktop_mac</span></p>";
+		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>&#xE30B;</span></p>";
 	} else if (isPC) {
-		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>desktop_windows</span></p>";
+		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>&#xE30C;</span></p>";
 	} else {
-		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>devices_other</span></p>";
+		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>&#xE337;</span></p>";
 	}
 	// Device name
 	if (platform.manufacturer && platform.product) {
@@ -219,7 +219,7 @@ function prepareTwitterLink() {
 
 function prepareSendLinks() {
 	// Email
-	$(".email").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
+	$("a[href='#email']").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
 	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
 	if (platform.manufacturer == "Apple") {
 		// iOS 8+ format
@@ -316,10 +316,6 @@ $(document).ready(function() {
 		ga('create', 'UA-59452245-3', 'auto');
 		ga('send', 'pageview');
 	}
-	// Hide floating share button if the Web Share API is not supported
-	if (!navigator.share) {
-		$("#share-button").hide();
-	}
 });
 
 // About button
@@ -367,10 +363,14 @@ $(document).on("click", "a[href='#clipboard']", function() {
 // Share button for mobile devices
 $(document).on("click", "#share-button", function() {
 	if (navigator.share) {
+		// If the browser supports the Web Share API, use that
 		navigator.share({
 			title: 'WhatDevice report',
 			text: createReport(),
 		});
+	} else {
+		// If the browser doesn't support the Web Share API, show a modal with limited share/save options
+		$('#sharemodal').modal('show');
 	}
 });
 

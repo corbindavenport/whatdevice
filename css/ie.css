@@ -1,4 +1,0 @@
-/* Hide the Material Design icons on IE 9 and below because they just break the page */
-.device-icon {
-    display:none !important;
-}

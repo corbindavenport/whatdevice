@@ -24,15 +24,13 @@
 	word-wrap: normal;
 	white-space: nowrap;
 	direction: ltr;
-
+	user-select: none;
 	/* Support for all WebKit browsers. */
 	-webkit-font-smoothing: antialiased;
 	/* Support for Safari and Chrome. */
 	text-rendering: optimizeLegibility;
-
 	/* Support for Firefox. */
 	-moz-osx-font-smoothing: grayscale;
-
 	/* Support for IE. */
 	font-feature-settings: 'liga';
 }
@@ -99,11 +97,16 @@ table, .table {
 	cursor: pointer;
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
+
 #share-button span {
 	color: #FFF;
 	line-height: 56px;
 	font-size: 30px;
 	margin-left: -2px;
+}
+
+#sharemodal .modal-body {
+	padding: 0 !important;
 }
 
 @media only screen and (max-width: 300px) {
