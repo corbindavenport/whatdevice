@@ -299,6 +299,19 @@ function createReport() {
 	}
 	// Browser info
 	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nUser agent string: " + navigator.userAgent + "\n\n";
+	// Plugin info
+	report += "-- PLUGIN INFO --\n"
+	if (navigator.plugins.length == 0) {
+		report += "No plugins were detected.\n\n"
+	} else {
+		var x = navigator.plugins.length;
+		report += "Plugins list:\n";
+		// Generate list
+		for (var i = 0; i < x; i++) {
+			report += "- " + navigator.plugins[i].name + ", version " + navigator.plugins[i].version + "\n"; 
+		}
+		report += "\n"
+	}
 	// Network info
 	report += "-- NETWORK INFO --\n";
 	if (navigator.connection) {
