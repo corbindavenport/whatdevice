@@ -149,7 +149,6 @@ function printBrowserInfo() {
 	} else if (platform.name === "Firefox") {
 		content += "<p><a href='https://support.mozilla.org/en-US/kb/update-firefox-latest-version' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
 	}
-
 	// Write data to page
 	$(".panel-browser .panel-body").html(content);
 }
@@ -180,8 +179,18 @@ function printNetworkInfo() {
 	$(".panel-network .panel-body").html(content);
 }
 
-// Create twitter share link
-function prepareTwitterLink() {
+function prepareShareLinks() {
+	// Email
+	$("a[href='#email']").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
+	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
+	if (platform.manufacturer == "Apple") {
+		// iOS 8+ format
+		$("a[href='#sms']").attr("href", "sms:&body=" + encodeURIComponent(createReport()));
+	} else {
+		// Android format
+		$("a[href='#sms']").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
+	}
+	// Twitter
 	// Create message
 	var message = "I have a ";
 	if (platform.manufacturer && platform.product) {
@@ -215,19 +224,6 @@ function prepareTwitterLink() {
 	// Create links
 	message = encodeURIComponent(message);
 	$("a[href='#twitter']").attr("href", "https://twitter.com/intent/tweet?text=" + message);
-}
-
-function prepareSendLinks() {
-	// Email
-	$("a[href='#email']").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
-	// SMS (from http://blog.julianklotz.de/the-sms-uri-scheme/)
-	if (platform.manufacturer == "Apple") {
-		// iOS 8+ format
-		$("a[href='#sms']").attr("href", "sms:&body=" + encodeURIComponent(createReport()));
-	} else {
-		// Android format
-		$("a[href='#sms']").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
-	}
 }
 
 // Fill the bottom info box
@@ -303,8 +299,7 @@ $(document).ready(function() {
 	printGraphicsInfo();
 	printBrowserInfo();
 	printNetworkInfo();
-	prepareTwitterLink();
-	prepareSendLinks();
+	prepareShareLinks();
 	writeInfo();
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("what-device.com")) {
@@ -366,7 +361,7 @@ $(document).on("click", "#share-button", function() {
 	if (navigator.share) {
 		// If the browser supports the Web Share API, use that
 		navigator.share({
-			title: 'WhatDevice report',
+			title: 'WhatDevice Report',
 			text: createReport(),
 		});
 	} else {
@@ -377,7 +372,6 @@ $(document).on("click", "#share-button", function() {
 
 // Update network status automatically
 if (navigator.connection) {
-	console.log("Network status changed, refreshing Network panel...")
 	navigator.connection.addEventListener('change', printNetworkInfo());
 }
 
