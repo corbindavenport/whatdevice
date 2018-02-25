@@ -202,7 +202,31 @@ function printPluginInfo() {
 	}
 	// Write data to page
 	$('.panel-plugins .panel-body').html(content);
-	$('#plugin-accordion').collapse('hide')
+	$('#plugin-accordion').collapse('hide');
+}
+
+// Sensor info
+function handleSensorInfo(event) {
+	var content = '<p class="title">Accelerometer</p>';
+	if (event.alpha == null) {
+		content += '<p>Your device does not appear to have an accelerometer.</p>'
+	} else {
+		content += '<p><b>Z axis value:</b> ' + event.alpha + '&#176;</p>';
+		content += '<p><b>X axis value:</b> ' + event.beta + '&#176;</p>';
+		content += '<p><b>Y axis value:</b> ' + event.gamma + '&#176;</p>';
+	}
+	// Write data to page
+	$('.panel-sensor .panel-body').html(content);
+}
+function printSensorInfo() {
+	var content = '';
+	if (window.DeviceOrientationEvent) {
+		// Register listener for sensor changes
+		window.addEventListener("deviceorientation", handleSensorInfo, true);
+	} else {
+		content += '<p>Your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent" target="_blank">Device Orientation API</a>, so sensor information cannot be obtained.</p>'
+		$('.panel-sensor .panel-body').html(content);
+	}
 }
 
 function prepareShareLinks() {
@@ -339,6 +363,7 @@ $(document).ready(function() {
 	printBrowserInfo();
 	printNetworkInfo();
 	printPluginInfo();
+	printSensorInfo();
 	prepareShareLinks();
 	writeInfo();
 	// Load Google Analytics for live site, not local testing
