@@ -179,6 +179,32 @@ function printNetworkInfo() {
 	$(".panel-network .panel-body").html(content);
 }
 
+// Plugin info
+function printPluginInfo() {
+	var content = '';
+	// Check if any plugins are installed
+	if (navigator.plugins.length == 0) {
+		content += '<p class="title">No plugins detected</p><p><b>Note:</b> Some browsers may hide some (or all) plugins as a security measure.</p>'
+	} else {
+		var x = navigator.plugins.length;
+		content += '<p class="title">' + x + ' plugins installed</p><p>These are all the browser plugins that WhatDevice could detect. Click on a plugin to show more details.</p><p><div class="panel-group" id="plugin-accordion">';
+		// forEach doesn't work with navigator.plugins for some reason
+		for (var i = 0; i < x; i++) {
+			// Accordion panel title
+			content += '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#plugin-accordion" href="#collapse' + i + '">' + navigator.plugins[i].name + '</a></h4></div>'
+			// Accordion panel body
+			content += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body"><b>Description:</b> ' + navigator.plugins[i].description + '<br /><b>File name:</b> ' + navigator.plugins[i].filename + '</br /><b>Version:</b> ' + navigator.plugins[i].version + '</div></div>'
+			// End accordion panel
+			content += '</div>'
+		}
+		// End accordion element
+		content += '</div><p><b>Note:</b> Some browsers may hide some (or all) plugins as a security measure.</p>'
+	}
+	// Write data to page
+	$('.panel-plugins .panel-body').html(content);
+	$('#plugin-accordion').collapse('hide')
+}
+
 function prepareShareLinks() {
 	// Email
 	$("a[href='#email']").attr("href", "mailto:?to=&body=" + encodeURIComponent(createReport()) + "&subject=WhatDevice%20Report");
@@ -299,6 +325,7 @@ $(document).ready(function() {
 	printGraphicsInfo();
 	printBrowserInfo();
 	printNetworkInfo();
+	printPluginInfo();
 	prepareShareLinks();
 	writeInfo();
 	// Load Google Analytics for live site, not local testing
