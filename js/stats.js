@@ -8,17 +8,18 @@ function printDeviceInfo() {
 	var content = "";
 	var icon = "";
 	var warning = "";
-	// Device icon
+	// Device icons from https://material.io/tools/icons/?style=baseline
+	// Codepoint values from https://github.com/google/material-design-icons/blob/master/iconfont/codepoints
 	if ((platform.product == "iPhone") || (platform.product == "iPod")) {
 		icon = "<p><span aria-label='iPhone icon' class='material-icons device-icon'>&#xE325;</span></p>";
 	} else if (platform.product == "iPad") {
-		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>&#xE30B;</span></p>";
+		icon = "<p><span aria-label='iPad icon' class='material-icons device-icon'>&#xe331;</span></p>";
 	} else if (isAndroid) {
-		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>&#xE30B;</span></p>";
+		icon = "<p><span aria-label='Android icon' class='material-icons device-icon'>&#xe324;</span></p>";
 	} else if (isMac) {
 		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>&#xE30B;</span></p>";
 	} else if (isPC) {
-		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>&#xE30C;</span></p>";
+		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>&#xe30c;</span></p>";
 	} else {
 		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>&#xE337;</span></p>";
 	}
