@@ -166,9 +166,9 @@ function printBrowserInfo() {
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
 	if (platform.name === "Chrome") {
-		content += "<p><a href='https://support.google.com/chrome/answer/95414' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
+		content += "<p><a href='https://support.google.com/chrome/answer/95414' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>";
 	} else if (platform.name === "Firefox") {
-		content += "<p><a href='https://support.mozilla.org/en-US/kb/update-firefox-latest-version' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>"
+		content += "<p><a href='https://support.mozilla.org/en-US/kb/update-firefox-latest-version' target='_blank'><button type='button' class='btn btn-default'>Check for browser updates</button></a></p>";
 	}
 	// Write data to page
 	$(".panel-browser .panel-body").html(content);
@@ -181,12 +181,12 @@ function printNetworkInfo() {
 		// Network type
 		if (typeof navigator.connection.type != undefined) {
 			if (navigator.connection.type == "none" || navigator.connection.type == undefined) {
-				content += "<p class='title'>Unknown network</p>"
+				content += "<p class='title'>Unknown network</p>";
 			} else {
-				content += "<p class='title'>" + navigator.connection.type + " network</p>"
+				content += "<p class='title'>" + navigator.connection.type + " network</p>";
 			}
 		} else {
-			content += "<p class='title'>Unknown network</p>"
+			content += "<p class='title'>Unknown network</p>";
 		}
 		// Effective bandwidth estimate
 		content += "<p><b>Downlink:</b> " + navigator.connection.downlink + " Mb/s</p>";
@@ -195,8 +195,21 @@ function printNetworkInfo() {
 		// Data saver status
 		content += "<p><b>Data saver:</b> " + navigator.connection.saveData + "</p>";
 		// Print current time
+	} else if (navigator.mozConnection || navigator.webkitConnection) {
+		connection = navigator.mozConnection || navigator.webkitConnection;
+		// Network type
+		if (typeof connection.type != undefined) {
+			if (connection.type == "none" || connection.type == undefined) {
+				content += "<p class='title'>Unknown network</p>";
+			} else {
+				content += "<p class='title'>" + connection.type + " network</p>";
+			}
+		} else {
+			content += "<p class='title'>Unknown network</p>";
+		}
+		content += "<p>Additional information unavailable because your browser doesn't support the full <a href='https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API' target='_blank'>Network Information API</a>.";
 	} else {
-		content += "<p>Your browser doesn't support the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API' target='_blank'>Network Information API</a>, so network information cannot be obtained.</p>"
+		content += "<p>Your browser doesn't support the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API' target='_blank'>Network Information API</a>, so network information cannot be obtained.</p>";
 	}
 	// Speedtest
 	content += "<p><a href='https://fast.com/' target='_blank'><button type='button' class='btn btn-default'>Open speed test</button></a></p>"
@@ -205,7 +218,7 @@ function printNetworkInfo() {
 }
 // Update network status automatically
 if (navigator.connection) {
-	navigator.connection.addEventListener('change', printNetworkInfo());
+	navigator.connection.onchange = printNetworkInfo;
 }
 
 // Plugin info
