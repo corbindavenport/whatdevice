@@ -76,13 +76,13 @@ function printDeviceInfo() {
 	}
 	// Language
 	if (navigator.languages) {
-		content += "\nLanguage: " + navigator.languages[0] + "\n";
+		content += "<p><b>Language:</b> " + navigator.languages[0] + "</p>";
 	} else if (navigator.language) {
-		content += "\nLanguage: " + navigator.language + "\n";
+		content += "<p><b>Language:</b> " + navigator.language + "</p>";
 	} else if (navigator.userLanguage) {
-		content += "\nLanguage: " + navigator.userLanguage + "\n";
+		content += "<p><b>Language:</b> " + navigator.userLanguage + "</p>";
 	} else {
-		content += "\nLanguage: Unavailable\n";
+		content += "<p><b>Language:</b> Unavailable</p>";
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
