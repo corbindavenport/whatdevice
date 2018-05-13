@@ -58,8 +58,7 @@ function printDeviceInfo() {
 		// When the promise is returned, add the value to .device-battery
 		function updateBattery() {
 			navigator.getBattery().then(function(battery) {
-				var batterylevel = battery.level * 100;
-				$(".device-battery").html(batterylevel + "%");
+				$(".device-battery").html(Math.floor(battery.level * 100) + "%");
 			});
 		}
 		updateBattery();
@@ -70,8 +69,7 @@ function printDeviceInfo() {
 	} else if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
 		// Legacy Battery API
 		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
-		var batterylevel = battery.level * 100;
-		content += "<p>Battery level:</b> " + batterylevel + "%";
+		content += "<p>Battery level:</b> " + Math.floor(battery.level * 100) + "%";
 		battery.onlevelchange = function() {
 			content += "<p>Battery level:</b> " + Math.floor(battery.level * 100) + "%";
 		}
@@ -292,7 +290,6 @@ function prepareShareLinks() {
 		$("a[href='#sms']").attr("href", "sms:?body=" + encodeURIComponent(createReport()));
 	}
 	// Twitter
-	// Create message
 	var message = "I have a ";
 	if (platform.manufacturer && platform.product) {
 		// Some devices have the same value for both
@@ -354,6 +351,11 @@ function createReport() {
 	var report = "---- WHATDEVICE.APP RESULTS ----\nGenerated: " + n + " " + time + "\n\n";
 	// Device info
 	report += "-- DEVICE INFO --\nManufacturer: " + platform.manufacturer + "\nProduct: " + platform.product + "\nOperating system: " + platform.os;
+	// Can't print info from new Battery API because it uses promises
+	if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
+		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
+		report += "\nBattery level: " + Math.floor(battery.level * 100) + "%";
+	}
 	// Display info
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
