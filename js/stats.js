@@ -67,6 +67,14 @@ function printDeviceInfo() {
 		navigator.getBattery().then(function(battery) {
 			battery.addEventListener('chargingchange', updateBattery());
 		});
+	} else if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
+		// Legacy Battery API
+		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
+		var batterylevel = battery.level * 100;
+		content += "<p>Battery level:</b> " + batterylevel + "%";
+		battery.onlevelchange = function() {
+			content += "<p>Battery level:</b> " + Math.floor(battery.level * 100) + "%";
+		}
 	}
 	// Language
 	if (navigator.languages) {
