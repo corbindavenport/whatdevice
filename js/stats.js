@@ -51,11 +51,21 @@ function printDeviceInfo() {
 	} else {
 		content += "<p><b>Operating system: </b> Unknown</p>";
 	}
-	// RAM
-	if (typeof navigator.deviceMemory != 'undefined' && navigator.deviceMemory) {
-		content += "<p><b>RAM:</b> " + navigator.deviceMemory + " GB</p>";
-	} else {
-		content += "<p><b>RAM:</b> Unavailable</p>";
+	// Battery
+	if (navigator.getBattery) {
+		content += "<p><b>Battery level:</b> <span class='device-battery'>Loading...</span></p>";
+		// When the promise is returned, add the value to .device-battery
+		function updateBattery() {
+			navigator.getBattery().then(function(battery) {
+				var batterylevel = battery.level * 100;
+				$(".device-battery").html(batterylevel + "%");
+			});
+		}
+		updateBattery();
+		// Update value every time the level changes
+		navigator.getBattery().then(function(battery) {
+			battery.addEventListener('chargingchange', updateBattery());
+		});
 	}
 	// Language
 	if (navigator.languages) {
@@ -141,7 +151,18 @@ function printBrowserInfo() {
 	// Rendering engine
 	content += "<p><b>Rendering engine:</b> " + platform.layout + "</p>";
 	// Misc
-	content += "<p><b>Cookies enabled:</b> " + navigator.cookieEnabled + "</p>";
+	if (navigator.cookieEnabled == true) {
+		content += "<p><b>Cookies:</b> Enabled</p>";
+	} else {
+		content += "<p><b>Cookies:</b> Disabled</p>";
+	}
+	if (navigator.doNotTrack) {
+		if (navigator.doNotTrack == 1) {
+			content += "<p><b>Do Not Track:</b> Enabled</p>";
+		} else {
+			content += "<p><b>Do Not Track:</b> Disabled</p>";
+		}
+	}
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
 	if (platform.name === "Chrome") {
@@ -159,9 +180,13 @@ function printNetworkInfo() {
 	if (navigator.connection) {
 		// Network type
 		if (typeof navigator.connection.type != undefined) {
-			content += "<p class='title'>Unknown network type</p>"
+			if (navigator.connection.type == "none" || navigator.connection.type == undefined) {
+				content += "<p class='title'>Unknown network</p>"
+			} else {
+				content += "<p class='title'>" + navigator.connection.type + " network</p>"
+			}
 		} else {
-			content += "<p class='title'>" + navigator.connection.type + " network</p>"
+			content += "<p class='title'>Unknown network</p>"
 		}
 		// Effective bandwidth estimate
 		content += "<p><b>Downlink:</b> " + navigator.connection.downlink + " Mb/s</p>";
@@ -177,6 +202,10 @@ function printNetworkInfo() {
 	content += "<p><a href='https://fast.com/' target='_blank'><button type='button' class='btn btn-default'>Open speed test</button></a></p>"
 	// Write data to page
 	$(".panel-network .panel-body").html(content);
+}
+// Update network status automatically
+if (navigator.connection) {
+	navigator.connection.addEventListener('change', printNetworkInfo());
 }
 
 // Plugin info
@@ -434,11 +463,6 @@ $(document).on("click", "#share-button", function() {
 		$('#sharemodal').modal('show');
 	}
 });
-
-// Update network status automatically
-if (navigator.connection) {
-	navigator.connection.addEventListener('change', printNetworkInfo());
-}
 
 // Remove tags from URL (like #clipboard) after modals close
 $('.modal').on('hide.bs.modal', function (e) {
