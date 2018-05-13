@@ -11,17 +11,13 @@
 	<title>WhatDevice</title>
 	<!-- Redirect Internet Explorer 8 and below to WhatDevice Lite -->
 	<!--[if lte IE 8]>
-		<script>
-			if (window.location.hash != "#noredirect") {
-				window.location.href = "http://lite.whatdevice.app"
-			}
-		</script>
+		<meta http-equiv="refresh" content="0; URL='http://lite.whatdevice.app'" />
 	<![endif]-->
 	<script>
-		// Redirect various mobile/legacy browsers to WhatDevice Lite
-		if (window.location.hash != "#noredirect" && /Opera Mini|webOS|hpwOS|Nintendo DS|Nintendo 3DS|Nintendo Wii|PlayStation Portable|PlayStation Vita/g.test(navigator.userAgent)) {
-			window.location.href = "http://lite.whatdevice.app"
-		}
+	// Redirect various mobile/legacy browsers to WhatDevice Lite
+	if (window.location.hash != "#noredirect" && /Opera Mini|webOS|hpwOS|Nintendo DS|Nintendo 3DS|Nintendo Wii|PlayStation Portable|PlayStation Vita/g.test(navigator.userAgent)) {
+		window.location.href = "http://lite.whatdevice.app"
+	}
 	</script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
