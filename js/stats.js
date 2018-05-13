@@ -76,11 +76,13 @@ function printDeviceInfo() {
 	}
 	// Language
 	if (navigator.languages) {
-		content += "<p><b>Language:</b> " + navigator.languages[0] + "</p>";
+		content += "\nLanguage: " + navigator.languages[0] + "\n";
 	} else if (navigator.language) {
-		content += "<p><b>Language:</b> " + navigator.language + "</p>";
+		content += "\nLanguage: " + navigator.language + "\n";
+	} else if (navigator.userLanguage) {
+		content += "\nLanguage: " + navigator.userLanguage + "\n";
 	} else {
-		content += "<p><b>Language:</b> Unavailable</p>";
+		content += "\nLanguage: Unavailable\n";
 	}
 	// Warning
 	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
@@ -360,6 +362,16 @@ function createReport() {
 	if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
 		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
 		report += "\nBattery level: " + Math.floor(battery.level * 100) + "%";
+	}
+	// Language
+	if (navigator.languages) {
+		report += "\nLanguage:" + navigator.languages[0] + "</p>";
+	} else if (navigator.language) {
+		report += "\nLanguage:</b> " + navigator.language + "</p>";
+	} else if (navigator.userLanguage) {
+		report += "\nLanguage:</b> " + navigator.userLanguage + "</p>";
+	} else {
+		report += "nLanguage:</b> Unavailable</p>";
 	}
 	// Display info
 	if (window.devicePixelRatio) {
