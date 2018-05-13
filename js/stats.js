@@ -157,19 +157,24 @@ function printBrowserInfo() {
 	content += "<p class='title'>" + platform.name + " " + platform.version + "</p>";
 	// Rendering engine
 	content += "<p><b>Rendering engine:</b> " + platform.layout + "</p>";
-	// Misc
+	// Cookies
 	if (navigator.cookieEnabled == true) {
 		content += "<p><b>Cookies:</b> Enabled</p>";
 	} else {
 		content += "<p><b>Cookies:</b> Disabled</p>";
 	}
+	// Do not track
 	if (navigator.doNotTrack) {
 		if (navigator.doNotTrack == 1) {
-			content += "<p><b>Do Not Track:</b> Enabled</p>";
+			content += "<p><b>Do Not Track:</b> Enabled";
 		} else {
-			content += "<p><b>Do Not Track:</b> Disabled</p>";
+			content += "<p><b>Do Not Track:</b> Disabled";
 		}
+	} else {
+		content += "<p><b>Do Not Track:</b> Not supported";
 	}
+	content += " (<a href='https://www.eff.org/issues/do-not-track' target='_blank'>more info</a>)</p>"
+	// User agent
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
 	if (platform.name === "Chrome") {
@@ -375,7 +380,16 @@ function createReport() {
 		report += "GPU: Could not be determined\n\n";
 	}
 	// Browser info
-	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nUser agent string: " + navigator.userAgent + "\n\n";
+	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nUser agent string: " + navigator.userAgent;
+	if (navigator.doNotTrack) {
+		if (navigator.doNotTrack == 1) {
+			report += "\nDo Not Track: Enabled\n\n"
+		} else {
+			content += "\nDo Not Track: Disabled\n\n";
+		}
+	} else {
+		report += "\nDo Not Track: Not supported\n\n"
+	}
 	// Plugin info
 	report += "-- PLUGIN INFO --\n"
 	if (navigator.plugins.length == 0) {
