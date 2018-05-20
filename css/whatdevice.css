@@ -68,17 +68,6 @@ table, .table {
 	word-wrap: break-word;
 }
 
-.panel-heading {
-	line-height: 20px;
-}
-
-.panel-heading .material-icons {
-	font-size: 20px;
-	position: relative;
-	top: 2px;
-	margin-right: 10px;
-}
-
 .whatdevice-button {
 	width: 100%;
 	margin-bottom: 30px;
