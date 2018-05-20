@@ -113,6 +113,10 @@ table, .table {
 	margin-bottom: 0 !important;
 }
 
+.pwa-refresh {
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 300px) {
 	.device-icon {
 		margin-right: 0px !important;
