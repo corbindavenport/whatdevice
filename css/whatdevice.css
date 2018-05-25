@@ -39,6 +39,8 @@
 
 body {
 	padding-top: 80px;
+	/* Use system font: https://furbo.org/2018/03/28/system-fonts-in-css/ */
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 table {
@@ -84,7 +86,7 @@ table, .table {
 	display: none;
 }
 
-#share-button {
+.share-button-fab {
 	position: fixed;
 	right: 23px;
     bottom: 23px;
@@ -98,11 +100,15 @@ table, .table {
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-#share-button span {
+.share-button-fab span {
 	color: #FFF;
 	line-height: 56px;
 	font-size: 30px;
 	margin-left: -2px;
+}
+
+.share-button-nav {
+	display: none !important;
 }
 
 #sharemodal .modal-body {
@@ -132,5 +138,15 @@ table, .table {
 	.device-icon {
 		margin-right: 10px !important;
 		font-size: 50px !important;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.share-button-fab {
+		display: none;
+	}
+
+	.share-button-nav {
+		display: block !important;
 	}
 }

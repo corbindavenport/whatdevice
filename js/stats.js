@@ -501,7 +501,7 @@ $(document).on("click", "a[href='#clipboard']", function() {
 });
 
 // Share button for mobile devices
-$(document).on("click", "#share-button", function() {
+$(document).on("click", ".share-button", function() {
 	if (navigator.share) {
 		// If the browser supports the Web Share API, use that
 		navigator.share({
