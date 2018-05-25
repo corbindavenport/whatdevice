@@ -124,10 +124,49 @@ function printGraphicsInfo() {
 	} else {
 		content += "<p>GPU information could not be detected because your browser doesn't support the required WebGL features.</p>";
 	}
-
+	// Check for VR display info
+	if (!navigator.getVRDisplays) {
+		// Browser doesn't support VRDisplay API
+		content += '<p>Unable to locate VR displays, because your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/VRDisplay" taget="_blank">VRDisplay API</a>.</p>'
+	} else {
+		content += '<p class="vr-info"><button type="button" class="btn btn-default vr-button">Show VR headset information</button></p>'
+	}
 	// Write data to page
 	$(".panel-graphics .panel-body").html(content);
 }
+
+// Display VR information
+$(document).on("click", ".vr-button", function() {
+	// Show loading bar while info is collected
+	$('.panel-graphics .vr-info').html('<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>');
+	navigator.getVRDisplays().then(function (displays) {
+		if (displays.length == 0) {
+			var content = '<h4>You have no VR devices connected.</h4>'
+		} else {
+			// Create accordion element
+			var content = '<div class="panel-group" id="vr-accordion">'
+			displays.forEach(function(headset, i) {
+				console.log(headset)
+				// Accordion panel title
+				displayNumber = i + 1
+				content += '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#vr-accordion" href="#collapse' + i + '"> VR Display ' + displayNumber + ': ' + headset.displayName + '</a></h4></div>'
+				// Accordion panel body
+				content += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">'
+				content += '<p><b>External display:</b> ' + headset.capabilities.hasExternalDisplay + '</p>'
+				content += '<p><b>Can track orientation:</b> ' + headset.capabilities.hasOrientation + '</p>'
+				content += '<p><b>Can track position:</b> ' + headset.capabilities.hasPosition + '</p>'
+				content += '</div></div>'
+				// End accordion panel
+				content += '</div>'
+			});
+			// End accordion element
+			content += '</div>'
+		}
+		// Write data to page
+		$('.panel-graphics .vr-info').html(content);
+		$('#vr-accordion').collapse('hide');
+	});
+});
 
 // GPU info
 function printGPUInfo() {
