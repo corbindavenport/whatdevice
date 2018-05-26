@@ -306,9 +306,9 @@ function handleSensorInfo(event) {
 	if (event.alpha == null) {
 		content += '<p>Your device does not appear to have an accelerometer.</p>'
 	} else {
-		content += '<p><b>Z axis value:</b> ' + event.alpha + '&#176;</p>';
-		content += '<p><b>X axis value:</b> ' + event.beta + '&#176;</p>';
-		content += '<p><b>Y axis value:</b> ' + event.gamma + '&#176;</p>';
+		content += '<p><b>Z axis value:</b> ' + math.round(event.alpha) + '&#176;</p>';
+		content += '<p><b>X axis value:</b> ' + math.round(event.beta) + '&#176;</p>';
+		content += '<p><b>Y axis value:</b> ' + math.round(event.gamma) + '&#176;</p>';
 	}
 	// Write data to page
 	$('.panel-sensor .panel-body').html(content);
