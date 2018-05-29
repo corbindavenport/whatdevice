@@ -300,28 +300,47 @@ function printPluginInfo() {
 	$('#plugin-accordion').collapse('hide');
 }
 
-// Sensor info
-function handleSensorInfo(event) {
-	var content = '<p class="title">Accelerometer</p>';
+// Refresh accelerometer data in sensor panel
+function refreshAccelerometer(event) {
+	var content = ''
+	// Accelerometer
 	if (event.alpha == null) {
-		content += '<p>Your device does not appear to have an accelerometer.</p>'
+		content += 'Your device does not appear to have an accelerometer.'
 	} else {
-		content += '<p><b>Z axis value:</b> ' + math.round(event.alpha) + '&#176;</p>';
-		content += '<p><b>X axis value:</b> ' + math.round(event.beta) + '&#176;</p>';
-		content += '<p><b>Y axis value:</b> ' + math.round(event.gamma) + '&#176;</p>';
+		content += '<b>Accelerometer Z axis value:</b> ' + event.alpha + '&#176;'
+		content += '<b>Accelerometer X axis value:</b> ' + event.beta + '&#176;'
+		content += '<b>Accelerometer Y axis value:</b> ' + event.gamma + '&#176;'
 	}
 	// Write data to page
-	$('.panel-sensor .panel-body').html(content);
+	$('.panel-sensor .accelerometer-data').html(content);
+}
+// Refresh rotation data in sensor panel
+function refreshOrientation(orientation) {
+	var content = "<b>Screen orientation:</b> " + orientation
+	// Write data to page
+	$('.panel-sensor .orientation-data').html(content)
 }
 function printSensorInfo() {
-	var content = '';
+	var content = ''
+	// Acceleromter data
 	if (window.DeviceOrientationEvent) {
+		content += '<p class="accelerometer-data">Loading accelerometer data...</p>'
 		// Register listener for sensor changes
-		window.addEventListener("deviceorientation", handleSensorInfo, true);
+		window.addEventListener("deviceorientation", refreshAccelerometer, true)
 	} else {
-		content += '<p>Your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent" target="_blank">Device Orientation API</a>, so sensor information cannot be obtained.</p>'
-		$('.panel-sensor .panel-body').html(content);
+		content += '<p>Your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent" target="_blank">Device Orientation API</a>, so accelerometer information cannot be obtained.</p>'
 	}
+	// Rotation data
+	var orientation =  screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type
+	if (orientation) {
+		var content = '<p class="orientation-data"><b>Screen orientation:</b> ' + orientation + '</p>'
+		// Register listener for changes
+		window.addEventListener("orientationchange", refreshOrientation(orientation), true)
+	} else {
+		content += '<p>Your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation" target="_blank">Screen Orientation API</a>, so orientation information cannot be obtained.</p>'
+	}
+	// Write data to page
+	$('.panel-sensor .panel-body').html(content)
 }
 
 function prepareShareLinks() {
@@ -561,42 +580,3 @@ $('.modal').on('hide.bs.modal', function (e) {
 		window.location.hash = "";
 	}
 });
-
-// Service worker
-var newWorker;
-
-$(document).on("click", ".pwa-refresh", function() {
-	newWorker.postMessage({ action: 'skipWaiting' });
-});
-
-if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register("/sw.js").then(reg => {
-		reg.addEventListener("updatefound", () => {
-			// A wild service worker has appeared in reg.installing!
-			newWorker = reg.installing;
-			newWorker.addEventListener("statechange", () => {
-				// Has network.state changed?
-				switch (newWorker.state) {
-					case "installed":
-						if (navigator.serviceWorker.controller) {
-							// new update available
-							$(".pwa-refresh").show();
-						} else {
-							// no update available
-							console.log("No service worker update available.");
-						}
-						break;
-				}
-			});
-		});
-	});
-
-	var refreshing;
-	
-	navigator.serviceWorker.addEventListener("controllerchange", function () {
-		console.log("controllerchange");
-		if (refreshing) return;
-		window.location.reload();
-		refreshing = true;
-	});
-}
