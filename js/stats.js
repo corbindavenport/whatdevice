@@ -307,9 +307,9 @@ function refreshAccelerometer(event) {
 	if (event.alpha == null) {
 		content += 'Your device does not appear to have an accelerometer.'
 	} else {
-		content += '<b>Accelerometer Z axis value:</b> ' + event.alpha + '&#176;'
-		content += '<b>Accelerometer X axis value:</b> ' + event.beta + '&#176;'
-		content += '<b>Accelerometer Y axis value:</b> ' + event.gamma + '&#176;'
+		content += '<b>Accelerometer Z axis value:</b> ' + Math.round(event.alpha) + '&#176;'
+		content += '<b>Accelerometer X axis value:</b> ' + Math.round(event.beta) + '&#176;'
+		content += '<b>Accelerometer Y axis value:</b> ' + Math.round(event.gamma) + '&#176;'
 	}
 	// Write data to page
 	$('.panel-sensor .accelerometer-data').html(content);
@@ -333,7 +333,7 @@ function printSensorInfo() {
 	// Rotation data
 	var orientation =  screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type
 	if (orientation) {
-		var content = '<p class="orientation-data"><b>Screen orientation:</b> ' + orientation + '</p>'
+		content += '<p class="orientation-data"><b>Screen orientation:</b> ' + orientation + '</p>'
 		// Register listener for changes
 		window.addEventListener("orientationchange", refreshOrientation(orientation), true)
 	} else {
