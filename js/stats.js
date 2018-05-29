@@ -195,8 +195,8 @@ function printBrowserInfo() {
 		content += "<p><b>Cookies:</b> Disabled</p>";
 	}
 	// Do not track
-	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
-		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || typeof window.external.msTrackingProtectionEnabled() !== "undefined") {
+		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled()) {
 			content += "<p><b>Do Not Track:</b> Enabled";
 		} else {
 			content += "<p><b>Do Not Track:</b> Disabled";
