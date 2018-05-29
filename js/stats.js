@@ -84,16 +84,6 @@ function printDeviceInfo() {
 	} else {
 		content += "<p><b>Language:</b> Unavailable</p>";
 	}
-	// Warning
-	if (platform.os.family.includes("Windows XP") || platform.os.family.includes("Vista")) {
-		warning += "<div class='alert alert-danger alert-dismissible fade in'><p>Your operating system (" + platform.os.family + ") is no longer supported by Microsoft. You should upgrade to a more recent version, like Windows 10.</p><p><a class='eol-link' href='";
-		if (platform.os.family.includes("Windows XP")) {
-			warning += 'https://support.microsoft.com/en-us/help/14223/windows-xp-end-of-support';
-		} else if (platform.os.family.includes("Vista")) {
-			warning += 'https://support.microsoft.com/en-us/help/22882/windows-vista-end-of-support';
-		}
-		warning += "' target='_blank'><button type='button' class='btn btn-default'>More info</button></a></p></div>";
-	}
 
 	// Write data to page
 	$(".device-icon").html(icon);
