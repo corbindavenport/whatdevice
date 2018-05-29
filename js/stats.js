@@ -195,8 +195,8 @@ function printBrowserInfo() {
 		content += "<p><b>Cookies:</b> Disabled</p>";
 	}
 	// Do not track
-	if (navigator.doNotTrack) {
-		if (navigator.doNotTrack == 1) {
+	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
 			content += "<p><b>Do Not Track:</b> Enabled";
 		} else {
 			content += "<p><b>Do Not Track:</b> Disabled";
@@ -204,7 +204,6 @@ function printBrowserInfo() {
 	} else {
 		content += "<p><b>Do Not Track:</b> Not supported";
 	}
-	content += " (<a href='https://www.eff.org/issues/do-not-track' target='_blank'>more info</a>)</p>"
 	// User agent
 	content += "<p><b>User agent:</b> " + navigator.userAgent + "</p>";
 	// Buttons
@@ -314,7 +313,7 @@ function printSensorInfo() {
 	var content = ''
 	// Acceleromter data
 	if (window.DeviceOrientationEvent) {
-		content += '<p class="accelerometer-data">Loading accelerometer data...</p>'
+		content += '<p class="accelerometer-data">Your device does not appear to have an accelerometer.</p>'
 		// Register listener for sensor changes
 		window.addEventListener("deviceorientation", refreshAccelerometer, true)
 	} else {
