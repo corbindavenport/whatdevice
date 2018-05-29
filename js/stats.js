@@ -307,8 +307,8 @@ function refreshAccelerometer(event) {
 	if (event.alpha == null) {
 		content += 'Your device does not appear to have an accelerometer.'
 	} else {
-		content += '<b>Accelerometer Z axis value:</b> ' + Math.round(event.alpha) + '&#176;'
-		content += '<b>Accelerometer X axis value:</b> ' + Math.round(event.beta) + '&#176;'
+		content += '<b>Accelerometer Z axis value:</b> ' + Math.round(event.alpha) + '&#176;<br />'
+		content += '<b>Accelerometer X axis value:</b> ' + Math.round(event.beta) + '&#176;<br />'
 		content += '<b>Accelerometer Y axis value:</b> ' + Math.round(event.gamma) + '&#176;'
 	}
 	// Write data to page
