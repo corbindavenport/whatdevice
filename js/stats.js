@@ -307,9 +307,9 @@ function refreshAccelerometer(event) {
 	if (event.alpha == null) {
 		content += 'Your device does not appear to have an accelerometer.'
 	} else {
-		content += '<b>Accelerometer Z-axis:</b> ' + Math.round(event.alpha) + '&#176; <br>'
-		content += '<b>Accelerometer X-axis:</b> ' + Math.round(event.beta) + '&#176; <br>'
-		content += '<b>Accelerometer Y-axis:</b> ' + Math.round(event.gamma) + '&#176;'
+		content += '<div><b>Accelerometer Z-axis:</b> ' + Math.round(event.alpha) + '&#176;</div>'
+		content += '<div><b>Accelerometer X-axis:</b> ' + Math.round(event.beta) + '&#176;</div>'
+		content += '<div><b>Accelerometer Y-axis:</b> ' + Math.round(event.gamma) + '&#176;</div>'
 	}
 	// Write data to page
 	$('.panel-sensor .accelerometer-data').html(content);
