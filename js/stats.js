@@ -2,6 +2,7 @@
 var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
 var isAndroid = navigator.userAgent.toUpperCase().indexOf('ANDROID') > -1;
 var isPC = ((navigator.userAgent.toUpperCase().indexOf('WINDOWS') > -1) || (navigator.userAgent.toUpperCase().indexOf('LINUX') > -1));
+var isChromebook = navigator.userAgent.toUpperCase().indexOf('CROS') > -1;
 
 // Device info
 function printDeviceInfo() {
@@ -20,6 +21,8 @@ function printDeviceInfo() {
 		icon = "<p><span aria-label='Mac icon' class='material-icons device-icon'>&#xE30B;</span></p>";
 	} else if (isPC) {
 		icon = "<p><span aria-label='Windows icon' class='material-icons device-icon'>&#xe30c;</span></p>";
+	} else if (isChromebook) {
+		icon = "<p><span aria-label='Chromebook icon' class='material-icons device-icon'>&#xe31f;</span></p>";
 	} else {
 		icon = "<p><span aria-label='Generic device icon' class='material-icons device-icon'>&#xE337;</span></p>";
 	}
@@ -35,6 +38,8 @@ function printDeviceInfo() {
 		content += "<p class='title'>" + platform.product + "</p>";
 	} else if (isAndroid) {
 		content += "<p class='title'>Unknown Android device</p>"
+	} else if (isChromebook) {
+		content += "<p class='title'>Unknown Chromebook</p>"
 	} else {
 		// Determine if running a Mac
 		if (isMac) {
@@ -383,7 +388,7 @@ function writeInfo() {
 	var content = "<div class='well'><b>Need more info?</b> "
 	if (isMac) {
 		content += "Search for the 'System Information' app on your Mac to view more detailed information. <a href='https://support.apple.com/en-us/HT203001' target='_blank'>Need help finding it?</a>"
-	} else if (platform.os.family.includes("Chrome OS")) {
+	} else if (isChromebook) {
 		content += "You can <a href='https://chrome.google.com/webstore/detail/cog-system-info-viewer/difcjdggkffcfgcfconafogflmmaadco' target='_blank_'>download Cog from the Chrome Web Store</a> to view more detailed information about your computer. WhatDevice is not affiliated with Cog in any way."
 	} else if (isAndroid) {
 		content += "You can <a href='https://play.google.com/store/apps/details?id=com.cpuid.cpu_z' target='_blank_'>download CPU-Z from the Google Play Store</a> to view more detailed information about your device. WhatDevice is not affiliated with CPU-Z in any way."
