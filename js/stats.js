@@ -417,13 +417,13 @@ function createReport() {
 	}
 	// Language
 	if (navigator.languages) {
-		report += "\nLanguage:" + navigator.languages[0] + "</p>";
+		report += "\nLanguage: " + navigator.languages[0];
 	} else if (navigator.language) {
-		report += "\nLanguage:</b> " + navigator.language + "</p>";
+		report += "\nLanguage: " + navigator.language;
 	} else if (navigator.userLanguage) {
-		report += "\nLanguage:</b> " + navigator.userLanguage + "</p>";
+		report += "\nLanguage: " + navigator.userLanguage;
 	} else {
-		report += "nLanguage:</b> Unavailable</p>";
+		report += "\nLanguage: Unavailable";
 	}
 	// Display info
 	if (window.devicePixelRatio) {
@@ -444,16 +444,16 @@ function createReport() {
 		report += "GPU: Could not be determined\n\n";
 	}
 	// Browser info
-	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nUser agent string: " + navigator.userAgent;
-	if (navigator.doNotTrack) {
-		if (navigator.doNotTrack == 1) {
-			report += "\nDo Not Track: Enabled\n\n"
+	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
+		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled()) {
+			var dnd = "Enabled"
 		} else {
-			content += "\nDo Not Track: Disabled\n\n";
+			var dnd = "Disabled";
 		}
 	} else {
-		report += "\nDo Not Track: Not supported\n\n"
+		var dnd = "Not supported"
 	}
+	report += "-- BROWSER INFO --\nBrowser: " + platform.name + " " + platform.version + "\nRendering engine: " + platform.layout + "\nCookies enabled: " + navigator.cookieEnabled + "\nDo Not Track: " + dnd + "\nUser agent string: " + navigator.userAgent + "\n\n";
 	// Plugin info
 	report += "-- PLUGIN INFO --\n"
 	if (navigator.plugins.length == 0) {

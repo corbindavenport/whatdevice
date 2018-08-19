@@ -1,5 +1,5 @@
 //This is the "Offline copy of pages" service worker
-var cacheVersion = "3";
+var cacheVersion = "4";
 
 //Install stage sets up the index page (home page) in the cahche and opens a new cache
 self.addEventListener('install', function(event) {
