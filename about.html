@@ -9,16 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="canonical" href="https://whatdevice.app/about.html" />
 	<title>WhatDevice - About</title>
-	<!-- Redirect Internet Explorer 8 and below to WhatDevice Lite -->
-	<!--[if lte IE 8]>
-		<meta http-equiv="refresh" content="0; URL='http://lite.whatdevice.app'" />
-	<![endif]-->
-	<script>
-	// Redirect various mobile/legacy browsers to WhatDevice Lite
-	if (window.location.hash != "#noredirect" && /Opera Mini|Navigator|NetFront|webOS|hpwOS|Nintendo DS|Nintendo 3DS|Nintendo Wii|PlayStation 3|PlayStation Portable|PlayStation Vita/g.test(navigator.userAgent)) {
-		window.location.href = "http://lite.whatdevice.app"
-	}
-	</script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
 	<link href="css/whatdevice.css" rel="stylesheet">
@@ -55,7 +45,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" role="navigation">
 				<ul class="nav navbar-nav navbar-right" role="menubar">
-					<li><a href="/">Home</a></li>
+					<li><a href="index.html">Home</a></li>
 					<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Donate</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -64,9 +54,20 @@
 
 	<div class="container main-container">
 
-    <p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript and WebGL - you don't have to download any programs or apps!</p>
-    <p>WhatDevice supports all modern browsers. For older or less-powerful browsers, try <a href="https://lite.whatdevice.app">lite.whatdevice.app</a>.</p>
-    <p>If you find bugs, please <a href="https://github.com/whatdevice/whatdevice.github.io/issues" target="_blank">report them on GitHub</a>!</p>
+		<div class="jumbotron">
+			<h1 class="display-4">This is WhatDevice</h1>
+			<hr class="my-4">
+			<p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It works on most browsers released over the past decade, using JavaScript and OpenGL. No plugins or external programs are required.</p>
+			<p>WhatDevice can also share your results via email or download them as a text file. If someone is trying to help you diagnose a technical problem, this is is a great way to let them know exactly what hardware and software you are using.</p>
+			<p>Finally, WhatDevice is a Progressive Web App, so it can be installed to the home screen on iOS and Android. On newer browsers, WhatDevice can even run when you don't have an internet connection.</p>
+		</div>
+
+		<div class="panel panel-default panel-device">
+			<div class="panel-heading" role="heading">Credits</div>
+			<div class="panel-body">
+				<p>WhatDevice uses components from <a href="https://getbootstrap.com" target="_blank">Bootstrap</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="https://github.com/zenorocha/clipboard.js" target="_blank">Clipboard.js</a>, <a href="https://modernizr.com/" target="_blank">Modernizr</a>, <a href="https://www.pwabuilder.com/" target="_blank">PWA Builder</a>, <a href="https://github.com/boyofgreen/manUp.js/" target="_blank">ManUp.js</a>, and <a href="https://realfavicongenerator.net/" target="_blank">Favicon Generator</a>. WhatDevice is open-source under the GPLv3 license, and <a href="https://github.com/whatdevice/whatdevice.github.io/" target="_blank">the code is available on GitHub</a>.</p>
+			</div>
+		</div>
 
 	</div>
   
@@ -74,9 +75,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/platform.js"></script>
 	<script src="js/modernizr-custom.js"></script>
-	<script src="js/includes.js"></script>
-	<script src="js/manup.js"></script>
-	<script src="js/stats.js"></script>
 	<!--[if !IE]><!-->
 	<script src="js/register-sw.js"></script>
 	<!--<![endif]-->
