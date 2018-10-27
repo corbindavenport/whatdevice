@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="View information about your computer, phone, tablet, or other device without downloading any software.">
+	<meta name="keywords" content="stats,specs,whatdevice,device">
+	<meta name="author" content="Corbin Davenport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="canonical" href="https://whatdevice.app/about.html" />
+	<title>WhatDevice - About</title>
+	<!-- Redirect Internet Explorer 8 and below to WhatDevice Lite -->
+	<!--[if lte IE 8]>
+		<meta http-equiv="refresh" content="0; URL='http://lite.whatdevice.app'" />
+	<![endif]-->
+	<script>
+	// Redirect various mobile/legacy browsers to WhatDevice Lite
+	if (window.location.hash != "#noredirect" && /Opera Mini|Navigator|NetFront|webOS|hpwOS|Nintendo DS|Nintendo 3DS|Nintendo Wii|PlayStation 3|PlayStation Portable|PlayStation Vita/g.test(navigator.userAgent)) {
+		window.location.href = "http://lite.whatdevice.app"
+	}
+	</script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-slider.min.css" rel="stylesheet">
+	<link href="css/whatdevice.css" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<meta name="msapplication-TileColor" content="#e7e7e7">
+	<meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+	<meta name="theme-color" content="#18bc9c">
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">WhatDevice</span>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse" role="navigation">
+				<ul class="nav navbar-nav navbar-right" role="menubar">
+					<li><a href="/">Home</a></li>
+					<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Donate</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container main-container">
+
+    <p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript and WebGL - you don't have to download any programs or apps!</p>
+    <p>WhatDevice supports all modern browsers. For older or less-powerful browsers, try <a href="https://lite.whatdevice.app">lite.whatdevice.app</a>.</p>
+    <p>If you find bugs, please <a href="https://github.com/whatdevice/whatdevice.github.io/issues" target="_blank">report them on GitHub</a>!</p>
+
+	</div>
+  
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/platform.js"></script>
+	<script src="js/modernizr-custom.js"></script>
+	<script src="js/includes.js"></script>
+	<script src="js/manup.js"></script>
+	<script src="js/stats.js"></script>
+	<!--[if !IE]><!-->
+	<script src="js/register-sw.js"></script>
+	<!--<![endif]-->
+</body>
+</html>
