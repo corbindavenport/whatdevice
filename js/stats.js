@@ -105,13 +105,13 @@ function printGraphicsInfo() {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
 		if ((w != screen.width) || (h != screen.height)) {
-			content += "<p><b>Display resolution:</b> " + w + " x " + h + " (<i>may be innaccurate</i>)</p>";
-			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + ", " + (window.devicePixelRatio * 100) + "% scaling</p>";
+			content += "<p><b>Display resolution:</b> " + w + " × " + h + " (<i>may be innaccurate</i>)</p>";
+			content += "<p><b>Scaled resolution:</b> " + screen.width + " × " + screen.height + ", " + (window.devicePixelRatio * 100) + "% scaling</p>";
 		} else {
-			content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
+			content += "<p><b>Display resolution:</b> " + w + " × " + h + "</p>";
 		}
 	} else {
-		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + "p ixels'><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + " pixels'><b>Display resolution:</b> " + screen.width + " × " + screen.height + "</p>";
 	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
@@ -440,12 +440,12 @@ function createReport() {
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
-		report += "\nDisplay resolution: " + w + "x" + h + " (may be inaccurate)";
+		report += "\nDisplay resolution: " + w + "×" + h + " (may be inaccurate)";
 		if ((w != screen.width) || (h != screen.height)) {
-			report += "\nScaled resolution: " + screen.width + "x" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
+			report += "\nScaled resolution: " + screen.width + "×" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
 		}
 	} else {
-		report += "\nScreen resolution: " + screen.width + "x" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
+		report += "\nScreen resolution: " + screen.width + "×" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
 	}
 	report += "\nDisplay color depth: " + screen.colorDepth + "\n";
 	// GPU info
