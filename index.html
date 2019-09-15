@@ -57,7 +57,7 @@
 				<ul class="nav navbar-nav navbar-right" role="menubar">
 					<li class="share-button share-button-nav"><a href="#">Share results</a></li>
 					<li><a href="about.html">About</a></li>
-					<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_blank">Donate</a></li>
+					<li><a href="#donate">Donate</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -195,25 +195,24 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="reportmodal" tabindex="-1" role="dialog" aria-labelledby="reportModal">
+	<!-- Donate modal -->
+	<div class="modal fade" id="donatemodal" tabindex="-1" role="dialog" aria-labelledby="donateModal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel" role="heading">Device report</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel" role="heading">Support WhatDevice</h4>
 				</div>
 				<div class="modal-body">
-					<textarea id="report-text" readonly placeholder="Please wait while the report is generated..." aria-label="Report contents"></textarea>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary clipboard-button" data-clipboard-target="#report-text">Copy to clipboard</button>
-					<button type="button" class="btn btn-success clipboard-success-button" role="alert" aria-live="assertive">Copied!</button>
-					<button type="button" class="btn btn-success clipboard-error-button" role="alert" aria-live="assertive">Error!</button>
+					<p>WhatDevice was developed over the course of many hours in my spare time. If you find WhatDevice useful, please consider donating!</p>
+					<p><button type="button" class="btn btn-success btn-block btn-patreon" data-dismiss="modal">Donate via Patreon</button></p>
+					<p><button type="button" class="btn btn-success btn-block btn-paypal" data-dismiss="modal">Donate via PayPal</button></p>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<!-- Share results modal (for when Web Share API isn't supported) -->  
 	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="shareModal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -229,6 +228,26 @@
 						<a href="#sms" class="list-group-item list-group-item-action">Send via SMS</a>
 						<a href="#twitter" target="_blank" class="list-group-item list-group-item-action">Share on Twitter</a>
 					  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Device report -->
+	<div class="modal fade" id="reportmodal" tabindex="-1" role="dialog" aria-labelledby="reportModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel" role="heading">Device report</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="report-text" readonly placeholder="Please wait while the report is generated..." aria-label="Report contents"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary clipboard-button" data-clipboard-target="#report-text">Copy to clipboard</button>
+					<button type="button" class="btn btn-success clipboard-success-button" role="alert" aria-live="assertive">Copied!</button>
+					<button type="button" class="btn btn-success clipboard-error-button" role="alert" aria-live="assertive">Error!</button>
 				</div>
 			</div>
 		</div>

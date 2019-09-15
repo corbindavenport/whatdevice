@@ -509,9 +509,15 @@ $(document).ready(function() {
 	}
 });
 
-// About button
-$(document).on("click", "a[href='#about']", function() {
-	$('#aboutmodal').modal('show');
+// Donate
+$(document).on('click', 'a[href="#donate"]', function() {
+	$('#donatemodal').modal('show');
+});
+$(document).on('click', '.btn-patreon', function() {
+	window.open('https://www.patreon.com/corbindavenport', '_blank');
+});
+$(document).on('click', '.btn-paypal', function() {
+	window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted', '_blank');
 });
 
 // Save text file menu option

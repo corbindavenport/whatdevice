@@ -1,3 +1,6 @@
+/* Dark theme */
+@import url('bootstrap-cyborg-theme.min.css') (prefers-color-scheme: dark);
+
 /* Material Icons font */
 
 @font-face {
@@ -40,11 +43,12 @@
 body {
 	padding-top: 80px;
 	/* Use system font: https://furbo.org/2018/03/28/system-fonts-in-css/ */
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
 }
 
 table {
 	width: 100%;
+	background: inherit !important;
 }
 
 table, .table {
@@ -80,6 +84,7 @@ table, .table {
 	height: 200px;
 	height: 50vh; /* Set textarea to 50% of the viewport if vh is supported by the browser */
 	resize: none;
+	background: inherit;
 }
 
 .clipboard-success-button, .clipboard-error-button {
