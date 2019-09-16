@@ -56,8 +56,8 @@
 			<div id="navbar" class="navbar-collapse collapse" role="navigation">
 				<ul class="nav navbar-nav navbar-right" role="menubar">
 					<li class="share-button share-button-nav"><a href="#">Share results</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="#donate">Donate</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#whatdevice-about-modal">About</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#whatdevice-donate-modal">Donate</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -179,7 +179,8 @@
 
 	</div>
 
-	<div class="modal fade" id="aboutmodal" tabindex="-1" role="dialog" aria-labelledby="aboutModal">
+	<!-- About modal -->
+	<div class="modal fade" id="whatdevice-about-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -187,16 +188,17 @@
 					<h4 class="modal-title" id="myModalLabel" role="heading">About WhatDevice</h4>
 				</div>
 				<div class="modal-body">
-					<p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It does all this through the magic of JavaScript and WebGL - you don't have to download any programs or apps!</p>
+					<p>WhatDevice is a web app designed to show information about your computer, tablet, phone, or other internet-connected device. It works on most browsers released over the past decade, using JavaScript and OpenGL. WhatDevice can also share your results via email or download them as a text file. If someone is trying to help you diagnose a technical problem, this is is a great way to let them know exactly what hardware and software you are using.</p>
 					<p>WhatDevice supports all modern browsers. For older or less-powerful browsers, try <a href="https://lite.whatdevice.app">lite.whatdevice.app</a>.</p>
 					<p>If you find bugs, please <a href="https://github.com/whatdevice/whatdevice.github.io/issues" target="_blank">report them on GitHub</a>!</p>
+					<p><i>WhatDevice uses components from <a href="https://getbootstrap.com" target="_blank">Bootstrap</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="https://github.com/zenorocha/clipboard.js" target="_blank">Clipboard.js</a>, <a href="https://modernizr.com/" target="_blank">Modernizr</a>, <a href="https://www.pwabuilder.com/" target="_blank">PWA Builder</a>, <a href="https://github.com/boyofgreen/manUp.js/" target="_blank">ManUp.js</a>, and <a href="https://realfavicongenerator.net/" target="_blank">Favicon Generator</a>. The Bootstrap theme is from <a href="https://bootswatch.com/" target="_blank">Bootswatch</a>, and the app icon is from <a href="https://www.iconfinder.com/icons/45175/cpu_fan_icon" target="_blank">Iconfinder</a>.</i></p>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Donate modal -->
-	<div class="modal fade" id="donatemodal" tabindex="-1" role="dialog" aria-labelledby="donateModal">
+	<div class="modal fade" id="whatdevice-donate-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -213,7 +215,7 @@
 	</div>
 
 	<!-- Share results modal (for when Web Share API isn't supported) -->  
-	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="shareModal">
+	<div class="modal fade" id="whatdevice-share-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
