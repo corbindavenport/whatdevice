@@ -113,6 +113,10 @@ function printGraphicsInfo() {
 	} else {
 		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + " pixels'><b>Display resolution:</b> " + screen.width + " × " + screen.height + "</p>";
 	}
+	// Touchscreen touch points
+	if (navigator.maxTouchPoints) {
+		content += "<p><b>Display touch points:</b> " + navigator.maxTouchPoints + "</p>";
+	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
 		content += "<p><b>GPU:</b> " + printGPUInfo() + "</p>";
@@ -451,9 +455,9 @@ function createReport() {
 			report += "\nScaled resolution: " + screen.width + "×" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
 		}
 	} else {
-		report += "\nScreen resolution: " + screen.width + "×" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
+		report += "\nScreen resolution: " + screen.width + "×" + screen.height;
 	}
-	report += "\nDisplay color depth: " + screen.colorDepth + "\n";
+	report += "\nDisplay touch points: " + navigator.maxTouchPoints + "\nDisplay color depth: " + screen.colorDepth + "\n"
 	// GPU info
 	if (printGPUInfo() != null) {
 		report += "GPU: " + printGPUInfo() + "\n\n";
