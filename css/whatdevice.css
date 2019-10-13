@@ -1,3 +1,6 @@
+/* Dark theme */
+@import url('bootstrap-cyborg-theme.min.css') (prefers-color-scheme: dark);
+
 /* Material Icons font */
 
 @font-face {
@@ -6,10 +9,10 @@
 	font-weight: 400;
 	src: url(../fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
 	src: local('Material Icons'),
-				local('MaterialIcons-Regular'),
-				url(../fonts/MaterialIcons-Regular.woff2) format('woff2'),
-				url(../fonts/MaterialIcons-Regular.woff) format('woff'),
-				url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
+		local('MaterialIcons-Regular'),
+		url(../fonts/MaterialIcons-Regular.woff2) format('woff2'),
+		url(../fonts/MaterialIcons-Regular.woff) format('woff'),
+		url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 .material-icons {
@@ -40,11 +43,12 @@
 body {
 	padding-top: 80px;
 	/* Use system font: https://furbo.org/2018/03/28/system-fonts-in-css/ */
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
 }
 
 table {
 	width: 100%;
+	background: inherit !important;
 }
 
 table, .table {
@@ -76,13 +80,6 @@ table, .table {
 }
 
 #report-text {
-	width: 100%;
-	height: 200px;
-	height: 50vh; /* Set textarea to 50% of the viewport if vh is supported by the browser */
-	resize: none;
-}
-
-.clipboard-success-button, .clipboard-error-button {
 	display: none;
 }
 
@@ -111,11 +108,11 @@ table, .table {
 	display: none !important;
 }
 
-#sharemodal .modal-body {
+#whatdevice-share-modal .modal-body {
 	padding: 0 !important;
 }
 
-#sharemodal .list-group {
+#whatdevice-share-modal .list-group {
 	margin-bottom: 0 !important;
 }
 

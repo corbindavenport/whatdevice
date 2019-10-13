@@ -1,5 +1,5 @@
 // General variables for detection
-var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 var isAndroid = navigator.userAgent.toUpperCase().indexOf('ANDROID') > -1;
 var isPC = ((navigator.userAgent.toUpperCase().indexOf('WINDOWS') > -1) || (navigator.userAgent.toUpperCase().indexOf('LINUX') > -1));
 var isChromebook = navigator.userAgent.toUpperCase().indexOf('CROS') > -1;
@@ -44,7 +44,7 @@ function printDeviceInfo() {
 		// Determine if running a Mac
 		if (isMac) {
 			content += "<p class='title'>Unknown Mac computer</p>";
-		// Anything else is a PC
+			// Anything else is a PC
 		} else if (isPC) {
 			content += "<p class='title'>Unknown PC</p>";
 		} else {
@@ -62,20 +62,20 @@ function printDeviceInfo() {
 		content += "<p><b>Battery level:</b> <span class='device-battery'>Loading...</span></p>";
 		// When the promise is returned, add the value to .device-battery
 		function updateBattery() {
-			navigator.getBattery().then(function(battery) {
+			navigator.getBattery().then(function (battery) {
 				$(".device-battery").html(Math.floor(battery.level * 100) + "%");
 			});
 		}
 		updateBattery();
 		// Update value every time the level changes
-		navigator.getBattery().then(function(battery) {
+		navigator.getBattery().then(function (battery) {
 			battery.addEventListener('chargingchange', updateBattery());
 		});
 	} else if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
 		// Legacy Battery API
 		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
 		content += "<p>Battery level:</b> " + Math.floor(battery.level * 100) + "%";
-		battery.onlevelchange = function() {
+		battery.onlevelchange = function () {
 			content += "<p>Battery level:</b> " + Math.floor(battery.level * 100) + "%";
 		}
 	}
@@ -105,13 +105,17 @@ function printGraphicsInfo() {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
 		if ((w != screen.width) || (h != screen.height)) {
-			content += "<p><b>Display resolution:</b> " + w + " x " + h + " (<i>may be innaccurate</i>)</p>";
-			content += "<p><b>Scaled resolution:</b> " + screen.width + " x " + screen.height + ", " + (window.devicePixelRatio * 100) + "% scaling</p>";
+			content += "<p><b>Display resolution:</b> " + w + " × " + h + " (<i>may be innaccurate</i>)</p>";
+			content += "<p><b>Scaled resolution:</b> " + screen.width + " × " + screen.height + ", " + (window.devicePixelRatio * 100) + "% scaling</p>";
 		} else {
-			content += "<p><b>Display resolution:</b> " + w + " x " + h + "</p>";
+			content += "<p><b>Display resolution:</b> " + w + " × " + h + "</p>";
 		}
 	} else {
-		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + "p ixels'><b>Display resolution:</b> " + screen.width + " x " + screen.height + "</p>";
+		content += "<p aria-label='Display resolution: " + screen.width + " pixels by " + screen.height + " pixels'><b>Display resolution:</b> " + screen.width + " × " + screen.height + "</p>";
+	}
+	// Touchscreen touch points
+	if (navigator.maxTouchPoints) {
+		content += "<p><b>Display touch points:</b> " + navigator.maxTouchPoints + "</p>";
 	}
 	content += "<p><b>Display color depth:</b> " + screen.colorDepth + "</p>";
 	if (printGPUInfo() != null) {
@@ -131,7 +135,7 @@ function printGraphicsInfo() {
 }
 
 // Display VR information
-$(document).on("click", ".vr-button", function() {
+$(document).on("click", ".vr-button", function () {
 	// Show loading bar while info is collected
 	$('.panel-graphics .vr-info').html('<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>');
 	navigator.getVRDisplays().then(function (displays) {
@@ -140,7 +144,7 @@ $(document).on("click", ".vr-button", function() {
 		} else {
 			// Create accordion element
 			var content = '<div class="panel-group" id="vr-accordion">'
-			displays.forEach(function(headset, i) {
+			displays.forEach(function (headset, i) {
 				console.log(headset)
 				// Accordion panel title
 				displayNumber = i + 1
@@ -200,19 +204,8 @@ function printBrowserInfo() {
 		content += "<p><b>Cookies:</b> Disabled</p>";
 	}
 	// Do not track
-	function ieTrackingEnabled() {
-		if (platform.name === "IE") {
-			try {
-				return window.external.msTrackingProtectionEnabled();
-			} catch(err) {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || ieTrackingEnabled()) {
+	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
 			content += "<p><b>Do Not Track:</b> Enabled";
 		} else {
 			content += "<p><b>Do Not Track:</b> Disabled";
@@ -336,7 +329,7 @@ function printSensorInfo() {
 		content += '<p>Your browser does not support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent" target="_blank">Device Orientation API</a>, so accelerometer information cannot be obtained.</p>'
 	}
 	// Rotation data
-	var orientation =  screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type
+	var orientation = screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type
 	if (orientation) {
 		content += '<p class="orientation-data"><b>Screen orientation:</b> ' + orientation + '</p>'
 		// Register listener for changes
@@ -376,22 +369,39 @@ function prepareShareLinks() {
 		// Determine if running a Mac
 		if (isMac) {
 			message += "Mac";
-		// Anything else is a PC
+			// Anything else is a PC
 		} else if (isPC) {
 			message += "PC";
 		} else {
 			message += "device";
 		}
 	}
-	// Append operating system
 	if (platform.os) {
 		message += ", running " + platform.os;
 	}
-	// Append browser info
 	message += ", with " + platform.name + " " + platform.version + ". See your results at https://whatdevice.app."
-	// Create links
 	message = encodeURIComponent(message);
 	$("a[href='#twitter']").attr("href", "https://twitter.com/intent/tweet?text=" + message);
+	// Clipboard
+	$(document).on('click', 'a[href="#clipboard"]', function () {
+		var textarea = document.createElement('textarea');
+		textarea.value = createReport();
+		document.getElementById('whatdevice-share-modal').appendChild(textarea);
+		textarea.select();
+		document.execCommand('Copy');
+		document.getElementById('whatdevice-share-modal').removeChild(textarea);
+		$('#whatdevice-share-modal').modal('hide');
+	});
+	// Save text file menu option
+	$(document).on("click", "a[href='#savefile']", function () {
+		// Generate report
+		var data = createReport();
+		data = data.replace("\n", "\r\n");
+		// Download file
+		var blob = new Blob([data], { type: "text/plain;charset=utf-8" });
+		saveAs(blob, "whatdevice-report.txt");
+		$('#whatdevice-share-modal').modal('hide');
+	});
 }
 
 // Fill the bottom info box
@@ -440,14 +450,14 @@ function createReport() {
 	if (window.devicePixelRatio) {
 		var w = Math.round(screen.width * window.devicePixelRatio);
 		var h = Math.round(screen.height * window.devicePixelRatio);
-		report += "\nDisplay resolution: " + w + "x" + h + " (may be inaccurate)";
+		report += "\nDisplay resolution: " + w + "×" + h + " (may be inaccurate)";
 		if ((w != screen.width) || (h != screen.height)) {
-			report += "\nScaled resolution: " + screen.width + "x" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
+			report += "\nScaled resolution: " + screen.width + "×" + screen.height + "\nScaling ratio: " + (window.devicePixelRatio * 100) + "%";
 		}
 	} else {
-		report += "\nScreen resolution: " + screen.width + "x" + screen.height + "\nDisplay color depth: " + screen.colorDepth + "\n";
+		report += "\nScreen resolution: " + screen.width + "×" + screen.height;
 	}
-	report += "\nDisplay color depth: " + screen.colorDepth + "\n";
+	report += "\nDisplay touch points: " + navigator.maxTouchPoints + "\nDisplay color depth: " + screen.colorDepth + "\n"
 	// GPU info
 	if (printGPUInfo() != null) {
 		report += "GPU: " + printGPUInfo() + "\n\n";
@@ -455,19 +465,8 @@ function createReport() {
 		report += "GPU: Could not be determined\n\n";
 	}
 	// Browser info
-	function ieTrackingEnabled() {
-		if (platform.name === "IE") {
-			try {
-				return window.external.msTrackingProtectionEnabled();
-			} catch(err) {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || ieTrackingEnabled()) {
+	if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+		if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
 			var dnd = "Enabled"
 		} else {
 			var dnd = "Disabled";
@@ -485,7 +484,7 @@ function createReport() {
 		report += "Plugins list:\n";
 		// Generate list
 		for (var i = 0; i < x; i++) {
-			report += "- " + navigator.plugins[i].name + ", version " + navigator.plugins[i].version + "\n"; 
+			report += "- " + navigator.plugins[i].name + ", version " + navigator.plugins[i].version + "\n";
 		}
 		report += "\n"
 	}
@@ -504,13 +503,13 @@ function createReport() {
 	} else {
 		report += "Unable to obtain network information because this browser doesn't support the Network Information API.\n"
 	}
-	report += "This report was generated by https://whatdevice.app";
-
+  // Provide linkback to service
+  report += "This report was generated by https://whatdevice.app";
 	return report;
 }
 
 // Load everything
-$(document).ready(function() {
+$(document).ready(function () {
 	// Load device info
 	printDeviceInfo();
 	printGraphicsInfo();
@@ -522,61 +521,28 @@ $(document).ready(function() {
 	writeInfo();
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("whatdevice.app")) {
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 		ga('create', 'UA-59452245-3', 'auto');
 		ga('send', 'pageview');
 	}
 });
 
-// About button
-$(document).on("click", "a[href='#about']", function() {
-	$('#aboutmodal').modal('show');
+// Donate
+$(document).on('click', '.btn-patreon', function () {
+	window.open('https://www.patreon.com/corbindavenport', '_blank');
 });
-
-// Save text file menu option
-$(document).on("click", "a[href='#savefile']", function() {
-	// Generate report
-	var data = createReport();
-	data = data.replace("\n", "\r\n");
-	// Download file
-	var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
-	saveAs(blob, "whatdevice-report.txt");
-});
-
-// Clipboard menu option
-$(document).on("click", "a[href='#clipboard']", function() {
-	$('#sharemodal').modal('hide');
-	$('#reportmodal').modal('show');
-	$("#report-text").val(createReport());
-
-	var clipboard = new Clipboard(".clipboard-button");
-	clipboard.on('success', function(e) {
-		e.clearSelection();
-		$(".clipboard-button").hide();
-		$(".clipboard-success-button").show();
-		setTimeout(function (){
-			$('#reportmodal').modal('hide');
-			$(".clipboard-button").show();
-			$(".clipboard-success-button").hide();
-		}, 1000);
-	});
-	clipboard.on('error', function(e) {
-		e.clearSelection();
-		$(".clipboard-button").hide();
-		$(".clipboard-error-button").show();
-		setTimeout(function (){
-			$(".clipboard-button").show();
-			$(".clipboard-error-button").hide();
-		}, 1000);
-	});
+$(document).on('click', '.btn-paypal', function () {
+	window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4SZVSMJKDS35J&lc=US&item_name=WhatDevice%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted', '_blank');
 });
 
 // Share button for mobile devices
-$(document).on("click", ".share-button", function() {
+$(document).on("click", ".share-button", function () {
 	if (navigator.share) {
 		// If the browser supports the Web Share API, use that
 		navigator.share({
@@ -585,7 +551,7 @@ $(document).on("click", ".share-button", function() {
 		});
 	} else {
 		// If the browser doesn't support the Web Share API, show a modal with limited share/save options
-		$('#sharemodal').modal('show');
+		$('#whatdevice-share-modal').modal('show');
 	}
 });
 
