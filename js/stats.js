@@ -237,7 +237,7 @@ function printNetworkInfo() {
 	var content = "";
 	if (navigator.connection) {
 		// Network type
-		if (typeof navigator.connection.type != undefined) {
+		if (typeof navigator.connection.type !== "undefined") {
 			if (navigator.connection.type == "none" || navigator.connection.type == undefined) {
 				content += "<p class='title'>Unknown network</p>";
 			} else {
@@ -256,7 +256,7 @@ function printNetworkInfo() {
 	} else if (navigator.mozConnection || navigator.webkitConnection) {
 		connection = navigator.mozConnection || navigator.webkitConnection;
 		// Network type
-		if (typeof connection.type != undefined) {
+		if (typeof connection.type !== "undefined") {
 			if (connection.type == "none" || connection.type == undefined) {
 				content += "<p class='title'>Unknown network</p>";
 			} else {
