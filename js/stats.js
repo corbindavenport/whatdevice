@@ -57,6 +57,14 @@ function printDeviceInfo() {
 	} else {
 		content += "<p><b>Operating system: </b> Unknown</p>";
 	}
+	// CPU architecture
+	if (window.navigator.platform) {
+		content += "<p><b>Architecture: </b> " + window.navigator.platform.split(" ").splice(-1) + "</p>";
+	} else if (window.navigator.cpuClass) {
+		content += "<p><b>Architecture: </b> " + window.navigator.cpuClass + "</p>";
+	} else {
+		content += "<p><b>Architecture: </b> Unknown</p>";
+	}
 	// Battery
 	if (navigator.getBattery) {
 		content += "<p><b>Battery level:</b> <span class='device-battery'>Loading...</span></p>";
@@ -431,6 +439,13 @@ function createReport() {
 	var report = "---- WHATDEVICE.APP RESULTS ----\nGenerated: " + n + " " + time + "\n\n";
 	// Device info
 	report += "-- DEVICE INFO --\nManufacturer: " + platform.manufacturer + "\nProduct: " + platform.product + "\nOperating system: " + platform.os;
+	if (window.navigator.platform) {
+		report += "\nArchitecture: " + window.navigator.platform.split(" ").splice(-1);
+	} else if (window.navigator.cpuClass) {
+		report += "\nArchitecture: " + window.navigator.cpuClass;
+	} else {
+		report += "\nArchitecture: Unknown";
+	}
 	// Can't print info from new Battery API because it uses promises
 	if (navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery) {
 		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
