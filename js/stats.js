@@ -535,15 +535,30 @@ $(document).ready(function () {
 	// Load Google Analytics for live site, not local testing
 	if (window.location.href.includes("whatdevice.app")) {
 		(function (i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date(); a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
 		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 		ga('create', 'UA-59452245-3', 'auto');
 		ga('send', 'pageview');
 	}
+	// Show credits
+	fetch('https://corbin.io/supporters.json')
+		.then(function (response) {
+			response.json().then(function (data) {
+				var creditsList = 'WhatDevice development is supported by '
+				for (var i = 0; i < data['supporters'].length; i++) {
+					creditsList += data['supporters'][i] + ', '
+				}
+				creditsList = creditsList.substring(0, creditsList.length - 2)
+				document.getElementById('whatdevice-credits').innerText = creditsList + '.'
+			})
+		})
+		.catch(function (err) {
+			document.getElementById('whatdevice-credits').innerText = 'There was an error fetching WhatDevice supporters.'
+		});
 });
 
 // Donate
